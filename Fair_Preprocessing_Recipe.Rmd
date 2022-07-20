@@ -1,0 +1,482 @@
+---
+title: "`responsible_mlops`"
+author: ""
+date: ""
+output: 
+  # prettydoc::html_pretty:
+  #   theme: hpstr
+  #   highlight: github
+---
+
+
+
+
+
+
+```{r, echo=FALSE}
+#htmltools::img(src = knitr::image_uri(file.path(R.home("doc"), "html", "logo.jpg")), 
+               # alt = 'logo', 
+               # style = 'position:absolute; top:0; right:0; padding:10px;')
+
+htmltools::img(src = knitr::image_uri(file.path('img', 'color logo with words.png')), 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px;',
+               width = '25%')
+
+
+```
+
+<style>
+  .col2 {
+    columns: 2 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
+  }
+  .col3 {
+    columns: 3 100px;
+    -webkit-columns: 3 100px;
+    -moz-columns: 3 100px;
+  }
+</style>
+
+### **Fair Preprocessing Machine Learning Recipe**
+
+<details open>
+  <summary><font size="2"><i>Sneak peak ...</i></font></summary>
+  Using our `responsible_mlops` toolkit, we <b>decreased the disparity</b> in the proportion of hospitalization between whites and blacks from 11.23% (pre-mitigation) to 7.93% (post-mitigation).
+  <img src="img/results.png" align="center" alt="" width="75%" />
+
+  </details>
+
+
+---
+
+In 2019, [Obermeyer et al.]() revealed a Healthcare commercial prediction algorithm affecting the care of millions of patients <font size="3"><i>exhibiting significant racial bias</i></font> that had gone <b><font size="3">undetected</font></b>, resulting in <b><font size="3">Black patients</font></b> with complex medical needs not qualifying for extra care, despite being considerably sicker than White patients. Recent scrutiny of machine learning (ML) usage in healthcare systems has revealed numerous examples of harmful medical decisions made at the <b><font size="3">expense of minority and vulnerable populations.</font></b> Medical professionals and researchers relying on ML models to assist in decision making are often unaware of the bias unintentionally introduced into algorithms by real-world data that incorporates inherent unfairness and produces biased outcomes that widen the gap in healthcare inequity.   
+
+<details>
+  <summary><font size="2"><i>More studies ...</i></font></summary>
+  <hr/>
+  </details>
+  
+<br></br>
+
+#### **Introduction**
+
+Responsible AI is an emerging framework that addresses this need and helps mitigate the potential risks of harm from AI. Equality AI (EAI) is committed to helping data scientists close the health disparity gap by assembling a Responsible AI framework into tools that include modernized, end-to-end MLOps with functions that can be selectively incorporated to create various workflows designed to produce <b><font size="3">equitable, responsible models.</font></b> To make steps in our Responsible MLOps easy to follow, we have likened these various workflows to something everyone can understand – a recipe.  These recipes outline the <b><font size="3">“ingredients” you need and the exact steps to take to ensure you’ve fit a fair ML model.</b></font>  
+
+This is the first vignette for a fair preprocessing ML recipe and the main goal of this recipe is to repair the data set on which the model is run (pre-processing). It will give you an introduction to the EAI `responsible_mlops`, an open source ML end-to-end software framework for flexible fitting of responsible models as well as an introduction to our `fairness_metric` and `bias_mitigation_method` functions.
+
+<details>
+  <summary><font size="2"><i>See full framework ...</i></font></summary>
+  <img src="img/framework.png" align="center" alt="" width="900" />
+  </details>
+
+---
+
+#### **Why You'll Love this Recipe**
+
+To create a fair preprocessing ML algorithm, you will need to incorporate two crucial functions into your ML workflow: a bias mitigation method and a fairness metric.  <i>Bias Mitigation methods</i> are employed to address bias in data and/or machine learning models and achieve fairness in output.  <i>Fairness metrics</i> are needed to mathematically represent the fairness or bias levels of a machine learning model. 
+ 
+
+#### **Ingredients**
+* Your research question (or run our use case)
+* Source data (or use our sample data)
+* Fairness metric
+* Bias Mitigation method
+* Integrated development environment (IDE), such as R studio
+* R programming language, Python version coming soon
+* Access to the Equality AI GitHub repository
+
+
+<details>
+  <summary> <font size="3"><b> System Setup </b></font></summary>
+  <hr/>
+
+Clone and download the `responsible_mlops` GitHub repository. 
+
+Open `R` and set your working directory to the path you downloaded the repository on your local machine.
+
+```{r setup}
+knitr::opts_knit$set(root.dir = 'C:\\Users\\JiwonChang\\Downloads\\ResponsibleMachineLearningToolkit-20220718T132238Z-001\\ResponsibleMachineLearningToolkit')
+
+```
+
+Install and load the following packages.
+
+```{r, message=FALSE, warning=FALSE}
+library("caret") 
+library("dplyr") 
+library("randomForest")
+library("gbm")
+library("dplyr")
+library("DALEX")
+library("fairmodels")
+library("haven")
+library("data.table")
+library("mltools") 
+library("hash")
+library("pROC")
+library("ggpubr")
+```
+Load the source scripts.
+
+```{r, message=FALSE, warning=FALSE}
+source(file.path(getwd(),"src","data_fetch.R"))
+source(file.path(getwd(),"src","data_prepare.R"))
+source(file.path(getwd(),"src","data_prepare_dataset.R"))
+source(file.path(getwd(),"src","ml_model.R"))
+source(file.path(getwd(),"src","cross_validation.R"))
+source(file.path(getwd(),"src","fairness_recommendation.R"))
+source(file.path(getwd(),"src","fairness_metrics.R"))
+source(file.path(getwd(),"src","mitigation_methods.R"))
+source(file.path(getwd(),"src","reevaluate_algorithm.R"))
+source(file.path(getwd(),"src","results_filter.R"))
+source(file.path(getwd(),"src","plot_ml.R"))
+source(file.path(getwd(),"src","plot_fairness.R"))
+source(file.path(getwd(),"src","export_data.R"))
+```
+Set the parameter to re-evaluate your machine learning model and it’s fairness post bias mitigation.
+
+```{r, message=FALSE, warning=FALSE}
+reevaluate_method = TRUE
+```
+  <hr/>
+</details>
+
+#### **Instructions**
+
+<details open>
+  <summary> <font size="3">1. Define Research Question</font></summary>
+  <br>
+  We wanted to know if bias mitigation methods on data helped to <b>decrease bias and increase the fairness of Emergency Department triage</b> of different racial/ethnic groups to be admitted into the hospital. To answer this question, we started by fitting a model to <b>predict whether a patient will need a hospital or ICU admission</b> and assessed the model's fairness before and after mitigation.
+  
+  <details> 
+    <summary> <font size="2"><i>Tell me more ...</i></font></summary>
+
+<font size="2">
+More than 130 million patients in the United States (U.S.) seek care in the Emergency Department (ED) each year, resulting in overcrowding and reduced access to time-critical healthcare.[1-3] The application of predictive modeling can aid in the rapid identification of the sickest patients and in the prediction of hospital and ICU admission. These predictive models are typically trained using historical data which reflects historical and current socio-economic inequalities as well as racial and gender biases. For example, reports reveal that black patients were over 10% less likely to be admitted to hospitals compared to whites.[4] Algorithms trained on biased data will learn these biases and reflect them in their predictions.
+
+The development of fairness-based artificial intelligence offers a potential solution by incorporating bias mitigation techniques in the AI workflow.[5-7] Through a use case of hospital admission, we will illustrate a workflow recipe with pre-processing based bias mitigation for predicting hospital admissions. The main idea is to train the AI model on a “repaired” data set. The illustrated solution can also be applied in other settings such as healthcare resource allocation. 
+
+
+</font>
+
+    </details>
+  <hr/>
+</details>
+
+<details>
+  <summary> <font size="3">2. Connect to Source Data</font></summary>
+
+Use our sample data or import your own dataset. Provide information about the protected attribute, privileged group, and target attribute in your dataset.
+
+<details>
+<summary> <font size="2">Code</font></summary>
+```{r, message=FALSE, warning=FALSE}
+# Name of the sample dataset
+dataset_name <- "NHAMCS"
+# path_dataset (input from user)
+data_raw = data_fetch(data_name=dataset_name)
+```
+
+Normally we would get this input from the user, but it is contained in our object. Let's examine it. 
+
+```{r, message=FALSE, warning=FALSE}
+data_raw[-1]
+```
+
+```{r}
+glimpse(data_raw$data)
+```
+
+
+
+```{r, message=FALSE, warning=FALSE}
+# Input from user
+target_var <- data_raw$target_variable
+protected_var <- data_raw$protected_var
+privileged_class <- data_raw$privileged_class
+
+# Show the user how to set their own variables or bring in their own data.
+```
+</details>
+
+<details>
+<summary> <font size="2">Use Case</font></summary>
+Our sample data is from the National Hospital Ambulatory Medical Care Survey ([NHAMCS]()),  a sample of cross-sectional probability for U.S. emergency departments surveyed in 2018 and 2019. 
+
+**Protected attribute:** `r protected_var` </br>
+**Privileged group:** `r privileged_class` </br>
+**Target attribute:** `r target_var`
+</details>
+  <hr/>
+</details>
+
+<details>
+  <summary> <font size="3">3. Select Fairness and Mitigation Strategy</font></summary>
+
+Recommendation about the fairness metric and mitigation method is provided based on the series of questions that relates to the dataset, protected attribute, and analytic goals. 
+
+<details>
+<summary> <font size="2">Code</font></summary>
+```{r , echo=TRUE, eval=FALSE}
+fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',') %>%
+  rename(Node = 1) # we had to rename this because of an import issue.
+
+fairness_metric_tree <- fairness_tree_metric(fairness_tree_info)
+```
+
+```{r, echo= TRUE, eval=FALSE}
+
+[1] "QUESTION: Does your algorithm use an individual's sensitive variable information (intentional discrimination) to make a decision?"
+[1] "EXAMPLE: For example, do you use a person's gender to make the decision?"
+[1] "ANSWER: Yes/No"
+ No
+ 
+[1] "User response: No"
+[1] "N"
+[1] "QUESTION: Do you want to assess if your population is disadvantaged by multiple sources of discrimination such as race, class, gender, religion, and other inner traits?"
+[1] "EXAMPLE: For example, multiple sources would include accounting for all of a patient's attributes such as their gender, their age, etc... when measuring fairness"
+[1] "ANSWER: Yes/No"
+ No
+ 
+[1] "User response: No"
+[1] "N"
+[1] "QUESTION: Are there any standards or regulations enforced to avoid discrimination with regard to the decision being made?"
+[1] "EXAMPLE: An example standard would be an internal organizational policy imposing diversity among employees such as hiring equally from sensitive variable groups."
+[1] "ANSWER: Yes/No"
+ No
+ 
+[1] "User response: No"
+[1] "N"
+[1] "QUESTION: Is there a reliable label or ground truth for the outcome of interest? Is there no historical or measurement bias?"
+[1] "EXAMPLE: An example of areas where ground truths are available are disease prediction or hospital readmission. There is no ground truth when predicting whether a job  applicant is hired or college admission since the outcome in the training data is inferred by a human decision maker (subjective). Historical bias occurs when the data legitimately collected over time leads to unwanted outcomes and measurement biases occurs when features or labels are not measured accurately. "
+[1] "ANSWER: Yes/No"
+ No
+ 
+[1] "User response: No"
+[1] "N"
+[1] "QUESTION: Do you have features/explanatory variables in your data that provide information about the outcome variable while at the same time are correlated with the sensitive variable?              "
+[1] "EXAMPLE: For example, a person's height may be an effective predictor for whether they can receive a kidney from a donor but also can be highly correlated with gender."
+[1] "ANSWER: Yes/No"
+ No
+ 
+[1] "User response: No"
+[1] "N"
+[1] "Fairness Metric: Statistical Parity"
+```
+
+```{r fairness_tree_info, echo = FALSE}
+fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',') %>% 
+  rename(Node = 1) # we had to rename this because of an import issue. 
+
+
+fairness_metric_tree <- list(node = 20, fairness_metric = 'Statistical Parity')
+
+mitigation_mapping_info <- read.csv(file.path(getwd(),"config","mitigation_mapping.csv"), sep=',')
+
+mitigation_method <- mitigation_mapping_method(mitigation_mapping_info, 'Statistical Parity') 
+
+```
+</details>
+
+<details>
+<summary> <font size="2">Use Case</font></summary>
+We illustrate the selection of fairness metric with the hospital admission use case. For this use case, the legal framework is disparate impact (a decision is unfair if it results in an outcome that is disproportionately disadvantageous to individuals according to their sensitive attribute information), both masking (randomly choosing positive cases for the sensitive group) and intersectionality (bias due to combination of sensitive attributes, such as race and gender) are unlikely, representation bias is unlikely, standards/regulations do not exist, historical bias is likely, and no explanatory variable is likely to be correlated with sensitive attribute in a legitimate way. These lead us to the metric statistical parity. We apply the fairness metrics to mitigation methods mapping to determine the appropriate fairness mitigation methods. Three mitigation methods including resampling, reweighing, and disparate impact remover are chosen.
+</details>
+  <hr/>
+</details>
+
+<details open>
+  <summary> <font size="3">4. Data Preparation</font></summary>
+  
+  <details>
+  <summary> <font size="4">`data_prepare_nhamcs()`</font></summary>
+  
+  <b>Arguments</b>
+
+&emsp; .data </br>
+&emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
+
+  <b>Use Case</b>
+
+```{r imputation, eval=FALSE, echo = TRUE}
+# method_prepare:'Zhang', 'Raita', 'default'
+method_options<-list(method_prepare='Zhang',method_missing='mi_impute',max_iter=5)
+
+# Data clean
+data_clean_raw <- 
+  
+  data_prepare_nhamcs(
+    data_raw$data, 
+    data_raw$target_variable, 
+    method_options
+    )
+
+```
+
+</details>
+
+```{r disk_read, echo = FALSE }
+method_options<-list(method_prepare='default')
+method_options<-list(method_prepare='Zhang',method_missing='mi_impute',max_iter=5)
+
+# Data clean
+data_clean_raw <- readRDS('data_clean_raw')
+
+```
+
+<details>
+  <summary> <font size="4">`train_test_split()`</font></summary>
+
+```{r data_split, message=FALSE, warning=FALSE}
+
+# Data split
+train_data_size = 0.7
+data_clean <- train_test_split(data_clean_raw$data,
+                               target_var, 
+                               train_size = train_data_size)
+   
+```
+
+</details>
+<details>
+  <summary> <font size="4">`data_balancing()`</font></summary>
+
+```{r outcome_balance, message=FALSE, warning=FALSE}
+
+# Data balancing
+method_balancing <- "under"
+# e.g "under": under-sampling, "over": over-sampling
+data_clean$training <- data_balancing(data_clean$training,target_var, method_balancing)
+
+
+# Testing
+# table(data_clean$training$HOS) # 0,1
+# table(data_clean$training$RACERETH) # 1,2 --> White,Black
+
+# Note: first column as target variable
+```
+  </details>
+  <br></br>
+</details>
+
+<details>
+  <summary> <font size="3">5. Fit Prediction Model</font></summary>
+
+Import your machine learning model or use the sample machine learning models available in the package to apply to the dataset. The sample machine learning models available are Gradient Boosting Machine (GBM) and Random Forest models.  
+
+The code chunk below illustrates the key steps for training a machine learning classifier: </br> 
+
+1.	Defining the machine learning method
+2.	Specifying the target variable
+3.	Model training 
+4.	Producing predictions and predictive probabilities
+
+
+```{r prediction_model, message=FALSE, warning=FALSE}
+ml_method <- "rf"
+# "rf" - Random Forest
+# "gbm" - Gradient Boosting Machine
+# Parameters related to ML model
+
+param_ml <- list(ntree = 300, mtry = 20)
+
+ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
+
+pred_class <-ml_output$class
+pred_prob <-ml_output$probability
+ml_clf <-ml_output$model
+
+# Machine Learning Model Results
+true_class <- as.integer(get(target_var[1],data_clean$testing))
+ml_res <- ml_results(true_class, pred_class)
+# "TP", "TN", "FP", "FN", "precision", "recall", "F1", "accuracy"
+
+```
+
+Predictors include information collected at the time of the emergency departments’ triage: sex, age, race/ethnicity, type of residence, source of payment, arrival mode, arrival day and time, initial vital signs (body temperature, heart rate, respiratory rate, blood pressure, pulse oximetry), triage level, pain scale, 72-hour revisit rates, and 22 types of comorbidities (such as cancer or diabetes).
+  <hr/>
+</details>
+
+
+<details>
+  <summary> <font size="3">6. Assess the Baseline Fairness of ML model</font></summary>
+  
+Compare fairness metric and machine learning model accuracy for the privileged and unprivileged group of the protected attribute.
+
+```{r, message=FALSE, warning=FALSE}
+param_fairness_metric = list("protected" = protected_var, "privileged" = privileged_class)
+fairness_scores <- fairness_metric(ml_output$model, data_clean$testing, target_var, param_fairness_metric)
+fairness_score <- fairness_scores[["Statistical Parity"]]
+print(paste('Fairness Metric: Statistical Parity', 'Score: ', fairness_score))
+```
+  <hr/>
+</details>
+
+<details>
+  <summary> <font size="3">7. Run Mitigation</font></summary>
+
+Compare fairness metric and machine learning model accuracy for the privileged and unprivileged group of the protected attribute.
+
+<details>
+  <summary> <font size="2">Code</font></summary>
+
+```{r, message=FALSE, warning=FALSE}
+# param_bias_mitigation = list("protected" = protected_var)
+# training_data_m <- bias_mitigation(mitigation_method, data_clean$training, target_var, param_bias_mitigation)
+# testing_data_m <- bias_mitigation(mitigation_method, data_clean$testing, target_var, param_bias_mitigation)
+```
+  </details>
+</details>
+
+<details open>
+  <summary> <font size="3">8. Compare Before and After Mitigation</font></summary>
+
+Compare fairness metric and machine learning model accuracy for the privileged and unprivileged group of the protected attribute.
+
+<details>
+  <summary> <font size="2">Code</font></summary>
+
+```{r, message=FALSE, warning=FALSE}
+# param_bias_mitigation = list("protected" = protected_var)
+# training_data_m <- bias_mitigation(mitigation_method, data_clean$training, target_var, param_bias_mitigation)
+# testing_data_m <- bias_mitigation(mitigation_method, data_clean$testing, target_var, param_bias_mitigation)
+```
+  </details>
+</details>
+---
+
+
+<details>
+  <summary> <font size="3"><b>Limitations</b></font></summary>
+
+1. The study only included three pre-modeling mitigating techniques. Exploration of post-modeling mitigation techniques needs to be studied.
+2. The study only focused on the fairness metrics of statistical parity. Further studies on other fairness metrics such as equalized opportunity are needed. 
+3. In the current use case, we only focused on the mitigation for binary sensitive variables, and studies on mitigation techniques on multi-categorical variables need to be performed.
+4. Exploration of additional predictive models incorporating mitigation techniques on the hospital admission use case is needed.
+ </details>
+
+
+<br></br>
+
+<details>
+<summary> <font size="3"><b>References</b></font></summary>
+
+1. Kelen, Gabor D., et al. "Emergency department crowding: the canary in the health care system." NEJM, Catalyst Innovations in Care Delivery 2.5 (2021).
+<br></br>
+2. Johnson, Kimberly D., Gordon L. Gillespie, and Kimberly Vance. “Effects of interruptions on triage process in emergency department: a prospective, observational study.” Journal of nursing care quality, 33.4 (2018): 375.
+<br></br>
+3. Alshyyab, M. A., FitzGerald, G., Dingle, K., Ting, J., Bowman, P., Kinnear, F. B., Borkoles, E. (2019). Developing a conceptual framework for patient safety culture in emergency department: a review of the literature. The International Journal of Health Planning and Management, 34(1), 42-55.
+<br></br>
+4. Zhang, X., Carabello, M., Hill, T., Bell, S. A., Stephenson, R., & Mahajan, P. (2020). Trends of racial/ethnic differences in emergency department care outcomes among adults in the United States from 2005 to 2016. Frontiers in Medicine, 7, 300.
+<br></br>
+5. Mehrabi N, Morstatter F, Saxena N, Lerman K, Galstyan A. A survey on bias and fairness in machine learning. ACM Computing Surveys (CSUR), 2021;54(6):1-35.
+<br></br>
+6. Obermeyer Z, Powers B, Vogeli C, Mullainathan S. Dissecting racial bias in an algorithm used to manage the health of populations. Science, 2019;366(6464):447-53.
+<br></br>
+7. Zemel R, Wu Y, Swersky K, Pitassi T, Dwork C, editors. Learning fair representations. International conference on machine learning; 2013: PMLR.
+  
+  <hr/>
+</details>
+<br></br>
