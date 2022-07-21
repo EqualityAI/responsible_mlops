@@ -94,15 +94,13 @@ We are starting with fairness, and it doesn’t end there. We have much more in 
 ## Contributing to the project
 Equality AI uses both GitHib and Slack to manage our open source community. To participate:
 
-1. Join the Slack community (equalityai.slack.com)
+1. Join the Slack community (https://equalityai.com/slack)
     + Introduce yourself in the #Introductions channel. We're all friendly people!
-2. Check out the [CONTRIBUTING]() file to learn how to contribute to our project, report bugs, or make feature requests.
-3. Try out the [Responsible Machine Learning Toolkit](https://github.com/EqualityAI/ResponsibleMachineLearningToolkit)
+2. Check out the [CONTRIBUTING](https://github.com/EqualityAI/responsible_mlops/blob/main/CONTRIBUTING.md) file to learn how to contribute to our project, report bugs, or make feature requests.
+3. Try out the [Responsible MLOPs Toolkit](https://github.com/EqualityAI/responsible_mlops)
     + Hit the top right "star" button on GitHub to show your love!
-    + Watch the repo so that you get notifications when changes are made.
-    + <img src="img/watch.PNG" align="center" alt="" width="175" />
     + Follow the recipe above to use the code. 
-4. Provide feedback on your experience using the [GitHub discussions](https://github.com/EqualityAI/ResponsibleMachineLearningToolkit/discussions) or the [Slack #support](https://equalityai.slack.com/archives/C03HF7G4N0Y) channel
+4. Provide feedback on your experience using the [GitHub discussions](https://github.com/EqualityAI/respomsible_mlops/discussions) or the [Slack #support](https://equalityai.slack.com/archives/C03HF7G4N0Y) channel
     + For any questions or problems, send a message on Slack, or send an email to contact@equalityai.com.
 
 
