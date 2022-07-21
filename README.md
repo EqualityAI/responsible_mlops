@@ -1,9 +1,9 @@
 <img src="https://github.com/EqualityAI/Checklist/blob/master/img/color logo only.PNG" align="left" alt="EqualityAI Logo" width="65" />
 
 # Equality AI `responsible_mlops`
-[Equality AI (EAI)](https://equality-ai.com/) is the first organization to begin assembling the [Responsible AI framework]() into an end-to-end Responsible MLOPs Studio. The technology behind our Responsible MLOPs Studio is an open source ML software framework and tool, called `responsible_mlops`, with additional functions that can be selectively incorporated to create various workflows designed to produced <b>equitable, responsible models.</b>
+[Equality AI (EAI)](https://equalityai.com/) is the first organization to begin assembling the [Responsible AI framework]() into an end-to-end Responsible MLOPs Studio. The technology behind our Responsible MLOPs Studio is an open source ML software framework and tool, called `responsible_mlops`, with additional functions that can be selectively incorporated to create various workflows designed to produced <b>equitable, responsible models.</b>
 
-<b>[Read our EAI Manifesto](https://equality-ai.com/) and star this repo to show your support!!!</b>
+<b>[Read our EAI Manifesto]([https://equalityai.com#manifesto](https://github.com/EqualityAI/responsible_mlops/blob/main/MANIFESTO.md)) and star this repo to show your support!!!</b>
 
 <details open>
   <summary><font size="2"><i>Sneak peak ...</i></font></summary>
