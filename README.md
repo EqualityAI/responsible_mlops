@@ -5,7 +5,7 @@
 
 <b>[Read our EAI Manifesto]([https://equalityai.com#manifesto](https://github.com/EqualityAI/responsible_mlops/blob/main/MANIFESTO.md)) and star this repo to show your support!!!</b>
 
-<details open>
+<details>
   <summary><font size="2"><i>Sneak peak ...</i></font></summary>
   Using our responsible_mlops toolkit, we <b>decreased the disparity</b> in the proportion of hospitalization between whites and blacks from 11.23% (pre-mitigation) to 7.93% (post-mitigation).
   <img src="img/results.PNG" align="center" alt="" width="75%" />
