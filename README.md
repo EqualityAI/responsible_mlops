@@ -106,7 +106,7 @@ Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fai
   <summary><font size="4"> data_prepare_nhamcs() </font></summary></br>
   <b>Arguments:</b> .data, target_variable, method_options <br></br>
 
-Takes in the parameter method options. The options available include method_missing=<i><b>'mi_impute'</b></i>, which allows for multiple imputation of missing values and max_iter = <i><b>is the number of iteration for each imputation.</b></i>.
+Takes in the parameter method options. The options available include method_missing=<i><b>'mi_impute'</b></i>, which allows for multiple imputation of missing values and max_iter = <i><b>is the number of iterations for each imputation.</b></i>.
   
   ```
   method_options<-list(method_prepare='Zhang', method_missing='mi_impute', max_iter=5) 
@@ -139,97 +139,56 @@ Takes in the above parameters to makes sure that the class frequencies of the ta
   ```
 </details>
 
-
+<b>Fit prediction model</b></br>
  
+<details>
+  <summary><font size="4"> ml_method() </font></summary></br>
+  <b>Arguments:</b> .data, target_var, ml_method, param_ml <br></br>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Takes in the above parameters to fit a prediction model or the ml_method (i.e., either a random forest or a gradient bosted machine model). The options for the prediction model (param_ml) includes the number of trees = <i><b>ntree</i></b>.
+  
+  ```
+  ml_output = ml_model(data_clean, target_var, ml_method, param_ml) 
+  ```
+</details>
 
 <details>
-  <summary><font size="4"> mitigation_method() </font></summary>
-  <b>Arguments</b>
-  &emsp; .data </br>
-  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
-  </details>
+  <summary><font size="4"> ml_results() </font></summary></br>
+  <b>Arguments:</b> true_class, pred_class, pred_prob <br></br>
 
-  <details>
-  <summary><font size="4"> data_prepare_nhamcs() </font></summary>
-  <b>Arguments</b>
-  &emsp; .data </br>
-  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
-  </details>
+Takes in the above parameters to fit a prediction model and stores the <i><b>TP, TN, FP, FN, precision, recall, F1, accuracy</i></b> into the ml_res variable.
+  
+  ```
+  ml_res <- ml_results(true_class, pred_class, pred_prob) 
+  ```
+</details></br>
 
-  <details>
-  <summary><font size="4"> train_test_split() </font></summary>
-  <b>Arguments</b>
-  &emsp; .data </br>
-  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
-  </details>
-  
-   <details>
-  <summary><font size="4"> data_balancing() </font></summary>
-  <b>Arguments</b>
-  &emsp; .data </br>
-  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
-  </details>
+<b>Evaluate the Baseline Fairness of ML model</b></br>
 
-   <details>
-  <summary><font size="4"> ml_model() </font></summary>
-  <b>Arguments</b>
-  &emsp; .data </br>
-  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
-  </details>
+<details>
+  <summary><font size="4"> fairness_scores() </font></summary></br>
+  <b>Arguments:</b> model, testing, target_var, param_fairness_metric <br></br>
+
+Takes in the parameters above to evaluate the fairness metric of choice of the model.
   
-   <details>
-  <summary><font size="4"> ml_results() </font></summary>
-  <b>Arguments</b>
-  &emsp; .data </br>
-  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
-  </details>
+  ```
+  fairness_scores <- fairness_metric(ml_output$model, data_clean$testing, target_var, param_fairness_metric) 
+  ```
+</details></br>
+
+<b>Run bias mitigation</b></br>
+
+<details>
+  <summary><font size="4"> fairness_scores() </font></summary></br>
+  <b>Arguments:</b> mitigation_method, training, target_var, param_bias_mitigation <br></br>
+
+Takes in the parameters above to run a specified mitigation strategy on the data.
   
-  
-   <details>
-  <summary><font size="4"> ml_model() </font></summary>
-  <b>Arguments</b>
-  &emsp; .data </br>
-  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
-  </details>
-  
-     <details>
-  <summary><font size="4"> fairness_metric() </font></summary>
-  <b>Arguments</b>
-  &emsp; .data </br>
-  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
-  </details>
-  
-       <details>
-  <summary><font size="4"> bias_mitigation() </font></summary>
-  <b>Arguments</b>
-  &emsp; .data </br>
-  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
-  </details>
+  ```
+  training_data_m <- bias_mitigation(mitigation_method, data_clean$training, target_var, param_bias_mitigation) 
+  ```
+</details>
+
 
 
 ## Responsible AI Takes a Community
