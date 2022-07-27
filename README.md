@@ -51,7 +51,7 @@ With the release of our Fair Preprocessing Machine Learning Recipe, we want to i
 
 fairness_tree_info 
 
-Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fairness_tree.csv that has coverted this [recently published decision tree]() into a table. When the `fairness_metric_tree()` is executed it will print a series of questions to the R console. For each question the user will be prompted to answer Yes (Y, y, Yes, or yes) or No (N, n, No, or no)
+Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fairness_tree.csv that has coverted this [recently published decision tree]() into a table. When the `fairness_metric_tree()` is executed it will print a series of questions to the R console. For each question the user will be prompted to answer Yes <i>(Y, y, Yes, or yes)</i> or No <i>(N, n, No, or no)</i>. As the user answers each question they will move through the decision tree until reaching the appropriate fairness metric to use.
   
   ```
   fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',') 
