@@ -106,7 +106,7 @@ Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fai
   <summary><font size="4"> data_prepare_nhamcs() </font></summary></br>
   <b>Arguments:</b> .data, target_variable, method_options <br></br>
 
-Takes in the parameter method options. The options available include method_missing=<i><b>'mi_impute'</b></i>, which allows for multiple imputation of missing values and max_iter = <i><b></b></i>.
+Takes in the parameter method options. The options available include method_missing=<i><b>'mi_impute'</b></i>, which allows for multiple imputation of missing values and max_iter = <i><b>is the number of iteration for each imputation.</b></i>.
   
   ```
   method_options<-list(method_prepare='Zhang', method_missing='mi_impute', max_iter=5) 
