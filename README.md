@@ -55,6 +55,22 @@ See Methods, below, for more details.
 ```
 
 <details>
+  <summary><font size="4"> fairness_tree_metric() </font></summary>
+  <b>Arguments</b>
+  &emsp; fairness_tree_info </br>
+  &emsp;&emsp; Takes in the parameter fairness_tree_info. Provides questions to answer  
+  
+  ```
+  fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',') 
+  
+  fairness_metric_tree <- fairness_tree_metric(fairness_tree_info)
+  ```
+  </details>
+
+
+
+
+<details>
   <summary><font size="4"> mitigation_method() </font></summary>
   <b>Arguments</b>
   &emsp; .data </br>
