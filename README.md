@@ -137,7 +137,7 @@ Takes in the above parameters to makes sure that the class frequencies of the ta
   ```
   data_clean$training <- data_balancing(data_clean$training, target_var, method_balancing) 
   ```
-</details>
+</details></br>
 
 <b>Fit prediction model</b></br>
  
