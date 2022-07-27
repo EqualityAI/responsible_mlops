@@ -45,7 +45,25 @@ Let’s assemble the "ingredients" and get started!
 ## Highlighted functions
 With the release of our Fair Preprocessing Machine Learning Recipe, we want to introduce our `fairness_tree_metric` and `mitigation_method_mapping` functions that provide guidance on choosing appropriate fairness metrics and determining suitable fairness mitigation strategies.
 
-------------------------------------------------------------------------
+1. Data fetch
+2. Data prepare
+
+<details>
+  <summary><font size="4"> data_prepare_nhamcs() </font></summary></br>
+  <b>Arguments:</b> .data, target_variable, method_options <br></br>
+
+Takes in the parameter method options. The options available include method_missing=<i><b>'mi_impute'</b></i>, which allows for multiple imputation of missing values and max_iter = <i><b></b></i>.
+  
+  ```
+  method_options<-list(method_prepare='Zhang', method_missing='mi_impute', max_iter=5) 
+  
+  data_clean <- data_prepare_nhamcs(data_raw$data, data_raw$target_variable, method_options) 
+  ```
+    </details>
+
+3. 
+
+
 
 <details>
   <summary><font size="4"> fairness_tree_metric() </font></summary></br>
@@ -98,18 +116,6 @@ Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fai
   </details>
     </details>
 
-<details>
-  <summary><font size="4"> fairness_tree_metric() </font></summary></br>
-  <b>Arguments:</b> fairness_tree_info <br></br>
-
-Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fairness_tree.csv that has coverted this [recently published decision tree](https://arxiv.org/abs/2006.16745) into a table. When the `fairness_metric_tree()` is executed it will print a series of questions to the R console. For each question the user will be prompted to answer <i><b>(Y, y, Yes, or yes)</b></i> or No <i><b>(N, n, No, or no)</b></i>. As the user answers each question they will move through the decision tree until reaching the appropriate fairness metric to use.
-  
-  ```
-  fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',') 
-  
-  fairness_metric_tree <- fairness_tree_metric(fairness_tree_info)
-  ```
-    </details>
 
 
 
