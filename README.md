@@ -47,6 +47,19 @@ With the release of our Fair Preprocessing Machine Learning Recipe, we want to i
 
 <b>Data Fetch:</b> connect to source data (or use our sample data)</br>
 
+<details>
+  <summary><font size="4"> data_fetch() </font></summary></br>
+  <b>Arguments:</b> dataset_name <br></br>
+
+Takes in the parameter dataset_name and fetches the source data for this use case. The options available include <i><b>NHAMCS</b></i>. If you are connecting to your own data then be sure to specify the <i><b>target_variable, protected_var, and the priviledged_class</i></b>.
+  
+  ```
+  dataset_name <- "NHAMCS"
+  
+  data_raw = data_fetch(data_name=dataset_name)) 
+  ```
+</details></br>
+
 <b>Select Fairness and Mitigation Strategy:</b> `fairness_tree_metric` and `mitigation_method_mapping` functions that provide guidance on choosing appropriate fairness metrics and determining suitable fairness mitigation strategies </br>
 
 <details>
@@ -179,7 +192,7 @@ Takes in the parameters above to evaluate the fairness metric of choice of the m
 <b>Run bias mitigation</b></br>
 
 <details>
-  <summary><font size="4"> fairness_scores() </font></summary></br>
+  <summary><font size="4"> bias_mitigation() </font></summary></br>
   <b>Arguments:</b> mitigation_method, training, target_var, param_bias_mitigation <br></br>
 
 Takes in the parameters above to run a specified mitigation strategy on the data.
