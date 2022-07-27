@@ -59,7 +59,7 @@ Takes in the parameter method options. The options available include method_miss
   
   data_clean <- data_prepare_nhamcs(data_raw$data, data_raw$target_variable, method_options) 
   ```
-    </details>
+</details>
 
 3. 
 
