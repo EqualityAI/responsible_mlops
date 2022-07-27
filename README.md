@@ -43,8 +43,6 @@ Let’s assemble the "ingredients" and get started!
 [Sign up]() to hear when we release recipes that will tackle adjustments to the model (in processing) and the predictions (post-processing).
 
 ## Highlighted functions
-With the release of our Fair Preprocessing Machine Learning Recipe, we want to introduce our `fairness_tree_metric` and `mitigation_method_mapping` functions that provide guidance on choosing appropriate fairness metrics and determining suitable fairness mitigation strategies.
-
 <b>Data Fetch:</b> connect to source data (or use our sample data)</br>
 
 <details>
