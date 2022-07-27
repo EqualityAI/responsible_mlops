@@ -45,49 +45,9 @@ Let’s assemble the "ingredients" and get started!
 ## Highlighted functions
 With the release of our Fair Preprocessing Machine Learning Recipe, we want to introduce our `fairness_tree_metric` and `mitigation_method_mapping` functions that provide guidance on choosing appropriate fairness metrics and determining suitable fairness mitigation strategies.
 
-1. Data fetch
-2. Data prepare
+<b>Data Fetch:</b> connect to source data (or use our sample data)</br>
 
-<details>
-  <summary><font size="4"> data_prepare_nhamcs() </font></summary></br>
-  <b>Arguments:</b> .data, target_variable, method_options <br></br>
-
-Takes in the parameter method options. The options available include method_missing=<i><b>'mi_impute'</b></i>, which allows for multiple imputation of missing values and max_iter = <i><b></b></i>.
-  
-  ```
-  method_options<-list(method_prepare='Zhang', method_missing='mi_impute', max_iter=5) 
-  
-  data_clean <- data_prepare_nhamcs(data_raw$data, data_raw$target_variable, method_options) 
-  ```
-</details>
-
-<details>
-  <summary><font size="4"> train_test_split() </font></summary></br>
-  <b>Arguments:</b> .data, target_variable, train_size <br></br>
-
-Takes in the above parameters to split your train and test set data. The options available include train_size=<i><b>0-1</b></i>, and the default is set to 0.7 (i.e., 70% training data and 30% testing split).
-  
-  ```
-  data_clean <- train_test_split(data_clean$data, target_var, train_size = train_data_size) 
-  ```
-</details>
-
-<details>
-  <summary><font size="4"> data_balancing() </font></summary></br>
-  <b>Arguments:</b> .data, target_var, and method_balancing <br></br>
-
-Takes in the above parameters to makes sure that the class frequencies of the target variable is balanced in the dataset. Two methods of data balancing are implemented: <i><b>down-sampling and up-sampling</i></b> (both are from the `caret` package). Down-sampling randomly subset all the classes in the training set so that their class frequencies match the least prevalent class. For example, suppose that 80% of the training set samples are the first class and the remaining 20% are in the second class. Down-sampling would randomly sample the first class to be the same size as the second class (so that only 40% of the total training set is used to fit the model). Up-sampling randomly sample the minority class to be the same size as the majority class.
-  
-  ```
-  data_clean$training <- data_balancing(data_clean$training, target_var, method_balancing) 
-  
-  ```
-
-</details>
-
-3. 
-
-
+<b>Select Fairness and Mitigation Strategy:</b> `fairness_tree_metric` and `mitigation_method_mapping` functions that provide guidance on choosing appropriate fairness metrics and determining suitable fairness mitigation strategies </br>
 
 <details>
   <summary><font size="4"> fairness_tree_metric() </font></summary></br>
@@ -138,7 +98,52 @@ Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fai
 
   ```
   </details>
-    </details>
+    </details> </br>
+
+<b>Data preparation</b></br>
+
+<details>
+  <summary><font size="4"> data_prepare_nhamcs() </font></summary></br>
+  <b>Arguments:</b> .data, target_variable, method_options <br></br>
+
+Takes in the parameter method options. The options available include method_missing=<i><b>'mi_impute'</b></i>, which allows for multiple imputation of missing values and max_iter = <i><b></b></i>.
+  
+  ```
+  method_options<-list(method_prepare='Zhang', method_missing='mi_impute', max_iter=5) 
+  
+  data_clean <- data_prepare_nhamcs(data_raw$data, data_raw$target_variable, method_options) 
+  ```
+</details>
+
+
+<details>
+  <summary><font size="4"> train_test_split() </font></summary></br>
+  <b>Arguments:</b> .data, target_variable, train_size <br></br>
+
+Takes in the above parameters to split your train and test set data. The options available include train_size=<i><b>0-1</b></i>, and the default is set to 0.7 (i.e., 70% training data and 30% testing split).
+  
+  ```
+  data_clean <- train_test_split(data_clean$data, target_var, train_size = train_data_size) 
+  ```
+</details>
+
+
+<details>
+  <summary><font size="4"> data_balancing() </font></summary></br>
+  <b>Arguments:</b> .data, target_var, and method_balancing <br></br>
+
+Takes in the above parameters to makes sure that the class frequencies of the target variable is balanced in the dataset. Two methods of data balancing are implemented: <i><b>down-sampling and up-sampling</i></b> (both are from the `caret` package). Down-sampling randomly subset all the classes in the training set so that their class frequencies match the least prevalent class. For example, suppose that 80% of the training set samples are the first class and the remaining 20% are in the second class. Down-sampling would randomly sample the first class to be the same size as the second class (so that only 40% of the total training set is used to fit the model). Up-sampling randomly sample the minority class to be the same size as the majority class.
+  
+  ```
+  data_clean$training <- data_balancing(data_clean$training, target_var, method_balancing) 
+  ```
+</details>
+
+
+ 
+
+
+
 
 
 
