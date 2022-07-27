@@ -45,20 +45,11 @@ Let’s assemble the "ingredients" and get started!
 ## Highlighted functions
 With the release of our Fair Preprocessing Machine Learning Recipe, we want to introduce our `fairness_tree_metric` and `mitigation_method_mapping` functions that provide guidance on choosing appropriate fairness metrics and determining suitable fairness mitigation strategies.
 
-<font size="4"> `fairness_tree_metric()` </font>
-Takes in the parameter fairness_tree_info
-
-```
-Takes in the parameter fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',') </br>
-A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). 
-See Methods, below, for more details.
-```
-
 <details>
   <summary><font size="4"> fairness_tree_metric() </font></summary>
   <b>Arguments</b>
   &emsp; fairness_tree_info </br>
-  &emsp;&emsp; Takes in the parameter fairness_tree_info. Provides questions to answer  
+  &emsp;&emsp; Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fairness_tree.csv that has coverted this recently published decision tree into a table. When the `fairness_metric_tree()` is executed it will print a series of questions to the R console. For each question the user will be prompted to answer Yes (Y, y, Yes, or yes) or No (N, n, No, or no)
   
   ```
   fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',') 
