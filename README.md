@@ -58,7 +58,7 @@ Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fai
   ```
 
 <details>
-  &emsp; <summary><font size="3"><i> See example </i></font></summary></br>
+  <summary><font size="2"><i> See example </i></font></summary></br>
   
   ```
 > # Fairness metric selection
