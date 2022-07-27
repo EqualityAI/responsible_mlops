@@ -56,6 +56,42 @@ Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fai
   
   fairness_metric_tree <- fairness_tree_metric(fairness_tree_info)
   ```
+  
+  <summary><font size="4"> Example </font></summary></br>
+  
+  ```
+> # Fairness metric selection
+> fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',')#, fileEncoding="UTF-8-BOM")
+> fairness_metric_tree <- fairness_tree_metric(fairness_tree_info) 
+
+[1] "QUESTION: Does your algorithm use an individual's sensitive variable information (intentional discrimination) to make a decision?"
+[1] "EXAMPLE: For example, do you use a person's gender to make the decision?"
+[1] "ANSWER: Yes/No"
+ N
+
+[1] "QUESTION: Do you want to assess if your population is disadvantaged by multiple sources of discrimination such as race, class, gender, religion, and other inner traits?"
+[1] "EXAMPLE: For example, multiple sources would include accounting for all of a patient's attributes such as their gender, their age, etc... when measuring fairness"
+[1] "ANSWER: Yes/No"
+ N
+
+[1] "QUESTION: Are there any standards or regulations enforced to avoid discrimination with regard to the decision being made?"
+[1] "EXAMPLE: An example standard would be an internal organizational policy imposing diversity among employees such as hiring equally from sensitive variable groups."
+[1] "ANSWER: Yes/No"
+ N
+
+[1] "QUESTION: Is there a reliable label or ground truth for the outcome of interest? Is there no historical or measurement bias?"
+[1] "EXAMPLE: An example of areas where ground truths are available are disease prediction or hospital readmission. There is no ground truth when predicting whether a job  applicant is hired or college admission since the outcome in the training data is inferred by a human decision maker (subjective). Historical bias occurs when the data legitimately collected over time leads to unwanted outcomes and measurement biases occurs when features or labels are not measured accurately. "
+[1] "ANSWER: Yes/No"
+ N
+
+[1] "QUESTION: Do you have features/explanatory variables in your data that provide information about the outcome variable while at the same time are correlated with the sensitive variable?              "
+[1] "EXAMPLE: For example, a person's height may be an effective predictor for whether they can receive a kidney from a donor but also can be highly correlated with gender."
+[1] "ANSWER: Yes/No"
+ N
+ 
+[1] "Fairness Metric: Statistical Parity"
+
+  ```
   </details>
 
 
