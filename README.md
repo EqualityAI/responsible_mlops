@@ -72,6 +72,39 @@ Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fai
   fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',') 
   
   fairness_metric_tree <- fairness_tree_metric(fairness_tree_info)
+  
+  fairness_method <- fairness_metric_tree$fairness_metric
+  print(paste0('Fairness metric: ',fairness_method))
+  
+  # Later the fairness_method parameter will be passed to the fairness_scores() to evaluate the fairness metric on the model.
+  ```
+
+<details>
+  <summary><font size="2"><i> See example </i></font></summary></br>
+  
+  ```
+> # Mitigation method mapping
+> mitigation_mapping_info <- read.csv(file.path(getwd(),"config","mitigation_mapping.csv"), sep=',')
+> mitigation_method <- mitigation_mapping_method(mitigation_mapping_info, fairness_method)
+[1] "Mitigation methods recommended for Statistical Parity"
+[1] "1 - Disparate Impact Remover"
+[1] "2 - Resampling"
+[1] "3 - Reweighting"
+[1] "Select number between 1 - 3"
+
+  ```
+  </details>
+    </details> 
+    
+<details>
+  <summary><font size="4"> mitigation_mapping_method() </font></summary></br>
+  <b>Arguments:</b> mitigation_mapping_info <br></br>
+
+Takes in the parameter mitigation_mapping_info. Mitigation_mapping_info works similar to the Fairness_tree_info, and includes [EAI's mapping between mitigation methods and fairness metrics](). When the `mitigation_mapping_method()` is executed it will print the recommended bias mitigation for the associated fairness metric into the R console. For this use case or the fairness metric of Statistical Parity, the mitigation methods recommended include <i><b>Disparate impact remover, Resampling, Reweighting</b></i>. The user will be prompted to select a mitigation method.
+  
+  ```
+  mitigation_method <- mitigation_mapping_method(mitigation_mapping_info, fairness_method) 
+  # Later the mitigation_method parameter will be passed to the bias_mitigation() to apply the bias mitigation method to the data.
   ```
 
 <details>
