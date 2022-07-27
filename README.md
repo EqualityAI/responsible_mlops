@@ -56,7 +56,8 @@ Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fai
   
   fairness_metric_tree <- fairness_tree_metric(fairness_tree_info)
   ```
-  
+
+<details>
   <summary><font size="4"> Example </font></summary></br>
   
   ```
@@ -93,6 +94,7 @@ Takes in the parameter fairness_tree_info. Fairness_tree_info includes EAI's fai
 
   ```
   </details>
+    </details>
 
 
 
