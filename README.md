@@ -53,7 +53,7 @@ With the release of our Fair Preprocessing Machine Learning Recipe, we want to i
   </details>
 
 <details>
-  <summary><font size="4"> mitigation_method_mapping() </font></summary>
+  <summary><font size="4"> mitigation_method() </font></summary>
   <b>Arguments</b>
   &emsp; .data </br>
   &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
@@ -79,6 +79,43 @@ With the release of our Fair Preprocessing Machine Learning Recipe, we want to i
   &emsp; .data </br>
   &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
   </details>
+
+   <details>
+  <summary><font size="4"> ml_model() </font></summary>
+  <b>Arguments</b>
+  &emsp; .data </br>
+  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
+  </details>
+  
+   <details>
+  <summary><font size="4"> ml_results() </font></summary>
+  <b>Arguments</b>
+  &emsp; .data </br>
+  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
+  </details>
+  
+  
+   <details>
+  <summary><font size="4"> ml_model() </font></summary>
+  <b>Arguments</b>
+  &emsp; .data </br>
+  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
+  </details>
+  
+     <details>
+  <summary><font size="4"> fairness_metric() </font></summary>
+  <b>Arguments</b>
+  &emsp; .data </br>
+  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
+  </details>
+  
+       <details>
+  <summary><font size="4"> bias_mitigation() </font></summary>
+  <b>Arguments</b>
+  &emsp; .data </br>
+  &emsp;&emsp; A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
+  </details>
+
 
 ## Responsible AI Takes a Community
 We are starting with fairness, and it doesn’t end there. We have much more in the works,  and we want to know—what do you need? Do you have a Responsible AI challenge you need to solve? Drop us a line and let’s see how we can help! 
