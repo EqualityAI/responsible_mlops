@@ -46,7 +46,7 @@ Let’s assemble the "ingredients" and get started!
   <summary><font size="4"> data_fetch() </font></summary></br>
   <b>Arguments:</b> dataset_name <br></br>
 
-Takes in the parameter dataset_name and fetches the source data for this use case. The options available include <i><b>NHAMCS</b></i>. If you are connecting to your own data then be sure to specify the <i><b>target_variable, protected_var, and the priviledged_class</i></b>.
+Takes in the parameter dataset_name and fetches the source data for this use case. The options available include <i><b>[National Hospital Ambulatory Medical Survey (NHAMCS)]()</b></i>. If you are connecting to your own data then be sure to specify the <i><b>target_variable, protected_var, and the priviledged_class</i></b>.
   
   ```
   dataset_name <- "NHAMCS"
