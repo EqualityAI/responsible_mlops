@@ -46,9 +46,10 @@ Let’s assemble the "ingredients" and get started!
 With the release of our Fair Preprocessing Machine Learning Recipe, we want to introduce our `fairness_tree_metric` and `mitigation_method_mapping` functions that provide guidance on choosing appropriate fairness metrics and determining suitable fairness mitigation strategies.
 
 <font size="4"> fairness_tree_metric() </font>
-  ```Takes in the parameter fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',') </br>
-  A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
-  ```
+```
+Takes in the parameter fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',') </br>
+A data frame, data frame extension (e.g. a tibble), or a lazy data frame (e.g. from dbplyr or dtplyr). See Methods, below, for more details.
+```
 
 <details>
   <summary><font size="4"> mitigation_method() </font></summary>
