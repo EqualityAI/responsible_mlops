@@ -1,7 +1,6 @@
 # INSTRUCTIONS
 # 1. Install the packages listed below (0A - PACKAGES)
-# 2. Set working directory to the repository complete path to main folder i.e. "responsible_mlops"
-setwd("/Users/r/Documents/@active/C/EQUALITY-AI/git-code/equality-ai/responsible_mlops")
+setwd(dirname(dirname(rstudioapi::getSourceEditorContext()$path)))
 #====================================================================
 # 0A - PACKAGES
 #====================================================================
