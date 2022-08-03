@@ -1,7 +1,6 @@
 ﻿Fairness Metric,Mitigation Method,Available
 Statistical Parity,Reduction Approach,FALSE
 Statistical Parity,Fairness Constraints,FALSE
-Statistical Parity,Disparate Impact Remover,TRUE
 Statistical Parity,Resampling,TRUE
 Statistical Parity,Reweighting,TRUE
 Conditional Statistical Parity,Disparate Impact Remover,FALSE
