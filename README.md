@@ -66,11 +66,11 @@ Our plug and play functions are combined into two categories, 1) standardizing t
 * ml_results()
 
 ### Fairness and Bias mitigation functions
-<u>Guidance on selection</u>
+<ins>Guidance on selection</ins> 
 * fairness_tree_metric()
 * mitigation_mapping_method()
 
- <u>Application of metrics and methods</u>
+ <ins>Application of metrics and methods</ins> 
 * fairness_scores()
 * bias_mitigation()
 
