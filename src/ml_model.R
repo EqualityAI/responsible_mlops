@@ -369,19 +369,106 @@ ml_results <- function(y_true, y_pred, y_prob, param_results = NULL) {
   #
   # ----------------------------------------------------------------------------
   confusion_matrix = table(y_true , y_pred)
+  # Rows: True class (0, 1)
+  # Columns: Predicted class (0, 1)
   TN = confusion_matrix[1,1]
+  # TN: Value of actual class is 0 and value of predicted class is also 0
   TP = confusion_matrix[2,2]
+  # TP: Value of actual class is 1 and value of predicted class is also 1
   FP = confusion_matrix[1,2]
+  # FP: Value of actual class is 0 and value of predicted class is 1
   FN = confusion_matrix[2,1]
+  # FN: Value of actual class is 1 and value of predicted class is 0
   precision =(TP)/(TP+FP)
-  recall = (FP)/(FP+TN)
+  recall = (TP)/(TP+FN) 
   F1 = 2*((precision*recall)/(precision+recall))
   accuracy  = (TP+TN)/(TP+TN+FP+FN) # classification accuracy
-  AUC = auc_roc(y_prob, y_true)
+  # TPR = (TP)/ (TP+FN)
+  # FPR = (FP)/ (FP+TN)
+  # Accuracy = (TP+TN)/(TP+TN+FP+FN)
+  if("AUC"  %in% names(param_results)){
+    if( param_results$AUC == FALSE){
+      AUC = NULL
+      } 
+    }else{
+      AUC  = auc_roc(y_prob, y_true)
+    }
   
   results = list("TP" = TP, "TN" = TN, "FP" = FP, "FN" = FN, 
                  "precision" = precision, "recall"= recall, "F1" = F1, 
                  "accuracy" = accuracy, "AUC" = AUC)
   # "TP", "TN", "FP", "FN", "precision", "recall", "f1", "accuracy"
+  return(results)
+}
+
+#===============================================================================
+# AUC VALUE AND THRESHOLD
+#===============================================================================
+auc_results <- function(y_true, y_prob) {
+  # AUC calculation and AUC threshold for prediction 
+  #
+  # INPUT
+  # y_true (integer)            : True values of the the target variable
+  # y_prob (double)             : Predicted probability target variable
+  #
+  # OUTPUT
+  # results (list)              : AUC value and AUC optimal threshold for prediction
+  #
+  # ----------------------------------------------------------------------------
+  auc_value <-plot.roc(y_true,xlim=c(1,0),ylim=c(0,1),y_prob,col='red')
+  auc(auc_value)
+  # calculating auc threshold
+  auc_th <-as.numeric(coords(auc_value, "best", ret="threshold", transpose = FALSE))
+  
+  results = list("AUC" = as.numeric(auc_value$auc), "threshold" = auc_th) 
+  return(results)
+}
+
+#====================================================================
+# MACHINE LEARNING RESULTS  - Method II
+#====================================================================
+ml_results2 <- function(y_true, y_pred, param_results = NULL) {
+  # Machine learning model performance 
+  #
+  # INPUT
+  # y_true (integer)            : True values of the the target variable
+  # y_pred (integer)            : Predicted values of the the target variable
+  # param_results (list) [ToDo] : List comprising names of the metrics to be calculated
+  #                               (default: all metrics are calculated)
+  #
+  # OUTPUT
+  # results (list)              : Machine learning model performance results
+  #                               e.g. 'accuracy', 'F1', etc.
+  #
+  # ----------------------------------------------------------------------------
+  y_true <- factor(y_true)
+  y_pred <- factor(y_pred)
+  res_ <- confusionMatrix(y_pred, y_true, mode = "everything", positive="1")
+  # Rows: Predicted class (0, 1)
+  # Columns: True class (0, 1)
+  TN = res_$table[1,1]
+  # TN: Value of actual class is 0 and value of predicted class is also 0
+  TP = res_$table[2,2]
+  # TP: Value of actual class is 1 and value of predicted class is also 1
+  FP = res_$table[2,1]
+  # FP: Value of actual class is 0 and value of predicted class is 1
+  FN = res_$table[1,2]
+  # FN: Value of actual class is 1 and value of predicted class is 0
+  precision =(TP)/(TP+FP)
+  # res_$byClass['Precision']
+  recall = (TP)/(TP+FN) 
+  # res_$byClass['Recall']
+  F1 = 2*((precision*recall)/(precision+recall))
+  # res_$byClass['F1']
+  accuracy  = (TP+TN)/(TP+TN+FP+FN) # classification accuracy
+  # res_$byClass['Balanced Accuracy']
+  # TPR = (TP)/ (TP+FN)
+  # FPR = (FP)/ (FP+TN)
+  # Accuracy = (TP+TN)/(TP+TN+FP+FN)
+  
+  results = list("TP" = TP, "TN" = TN, "FP" = FP, "FN" = FN, 
+                 "precision" = precision, "recall"= recall, "F1" = F1, 
+                 "accuracy" = accuracy)
+  # "TP", "TN", "FP", "FN", "precision", "recall", "F1", "accuracy"
   return(results)
 }
