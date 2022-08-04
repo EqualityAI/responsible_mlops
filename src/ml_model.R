@@ -219,7 +219,7 @@ ml_model_gbm <- function(training_data, testing_data, target_var, param_ml) {
   # Testing Classifier
   ml_res = gbm_test(testing_data, target_var, mdl_clf,param_ml)
   
-  results = list("class" = pred_class, "probability" = pred_prob, "model" = mdl_clf)
+  results = list("class" = ml_res$class, "probability" = ml_res$probability, "model" = mdl_clf)
   return(results)
 }
 
