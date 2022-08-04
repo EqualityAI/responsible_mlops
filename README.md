@@ -2,11 +2,9 @@
 
 # Equality AI `responsible_mlops`
 
-<center>
 ## Welcome to our GitHub repo!
-</center>
 
-[Equality AI (EAI)](https://equalityai.com/) is the first organization to begin assembling the [Responsible AI framework]() into an end-to-end Responsible MLOPs Studio. The technology behind our Responsible MLOPs Studio is an open source ML software framework and tool, called `responsible_mlops`, with additional functions that can be selectively incorporated to create various workflows designed to produced <b>equitable, responsible models.</b>
+[Equality AI (EAI)](https://equalityai.com/) is a public benefit corporation dedicated to closing the health disparity gap by assembling a Responsible AI framework into a MLOps Developer Studio (alpha coming soon Autumn 2022) that includes modernized, end-to-end machine learning (ML) operations (Ops) with functions that can be selectively incorporated to create various workflows designed to produce equitable, responsible models. </b>
 
 <b>[Read our EAI Manifesto]([https://equalityai.com#manifesto](https://github.com/EqualityAI/responsible_mlops/blob/main/MANIFESTO.md)) and star this repo to show your support!!!</b>
 
