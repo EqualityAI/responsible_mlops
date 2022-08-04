@@ -8,7 +8,7 @@
 
 We have released the technology behind our Responsible MLOPs Studio on GitHub as an open source ML software framework and tool, called `responsible_mlops`.
 
-Give us a (put icon) star if you like our [EAI Manifesto](https://equalityai.com/)!</br>
+Give us a  :star: :star: if you like our [EAI Manifesto](https://equalityai.com/)!</br>
 <img src="img/star.png" align="center" alt="" width="400" />
 
 ## Fairness-based Machine Learning (Pre-processing)
