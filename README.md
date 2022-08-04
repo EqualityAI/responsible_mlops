@@ -40,15 +40,15 @@ To the best of our knowledge, no available solution exists in the literature att
 We have conducted extensive literature review and theoretical analysis on a large number of fairness metrics and mitigation methods. Theoretical properties of those fairness mitigation methods were analyzed to determine their suitability under various conditions to create our `responsible_mlops’ open source ML software framework for a pre-processing workflow.  The main idea is to train the ML model on a “repaired” data set, and evaluate a Fairness metric to understand if mitigation enhances the fairness of the predictions.</br>
 
 Using a healthcare application, we illustrate every step <b>(see steps 1-9 below)</b> of our fair machine learning framework. From choosing appropriate fairness metrics to determining suitable fairness mitigation strategies, from mitigation of fairness in data and models to fairness evaluation.
-1.  Define Research Question
-2.  Connect to Source Data
-3.  Select Fairness and Mitigation Strategy
-4.  Data Preparation
-5.  Fit Prediction Model
-6.  Compute Model Results and Fairness Score
-7.  Run Mitigation
-8.  Compute Model Results and Fairness Score After Mitigation
-9.  Compare Model Results and Fairness Score Before and After Mitigation
+1. Define Research Question
+2. Connect to Source Data
+3. Select Fairness and Mitigation Strategy
+4. Data Preparation
+5. Fit Prediction Model
+6. Compute Model Results and Fairness Score
+7. Run Mitigation
+8. Compute Model Results and Fairness Score After Mitigation
+9. Compare Model Results and Fairness Score Before and After Mitigation
 
 To make our `responsible_mlops` easy to follow, our expert statisticians, academic partners and machine learning experts have likened these various workflows to something everyone can understand—[a recipe](). These recipes outline the “ingredients” you need and the exact steps to take to fit a fairness-based ML model. A recipe will not be showing any of the code but will walk through how we ran our case study, with explanations of conceptually executing each step or series of functions in our `responsible_mlops’. To follow along with the code, open the script [example_dataset_NHAMCS.R]().</br>
 
