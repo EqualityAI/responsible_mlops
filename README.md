@@ -8,7 +8,7 @@
 
 We have released the technology behind our Responsible MLOPs Studio on GitHub as an open source ML software framework and tool, called `responsible_mlops`.
 
-Give us a  :star: if you like our [EAI Manifesto](https://equalityai.com/)!</br>
+Give us a  :star: if you like our [EAI Manifesto](https://equalityai.com/community/#manifesto)!</br>
 <img src="img/star.png" align="center" alt="" width="400" /></br>
 
 ## Fairness-based Machine Learning (Pre-processing)
@@ -77,7 +77,7 @@ Our plug and play functions are combined into two categories, 1) standardizing t
 For additional resources, check [out our EAI library]() of Fairness research compiled by our statisticians, academic partners and machine learning experts. 
 
 ## Responsible AI Takes a Community
-The connections and trade-offs between fairness, explainability, and privacy require a holistic approach to Responsible AI development in the machine learning community. We are starting with the principle of fairness and working towards a solution that incorporates multiple aspects of Responsible AI for data scientists and healthcare professionals. We have much more in the works, and we want to know—what do you need? Do you have a Responsible AI challenge you need to solve? [Drop us a line and let’s see how we can help!]()
+The connections and trade-offs between fairness, explainability, and privacy require a holistic approach to Responsible AI development in the machine learning community. We are starting with the principle of fairness and working towards a solution that incorporates multiple aspects of Responsible AI for data scientists and healthcare professionals. We have much more in the works, and we want to know—what do you need? Do you have a Responsible AI challenge you need to solve? [Drop us a line and let’s see how we can help!](https://equalityai.slack.com/join/shared_invite/zt-1claqpebo-MnGnGoqCM9Do~40HqbSaww#/shared-invite/email)
 
 ## Contributing to the project
 Equality AI uses both GitHib and Slack to manage our open source community. To participate:
