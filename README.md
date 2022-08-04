@@ -22,9 +22,9 @@ Fairness-based ML offers a potential solution by incorporating bias mitigation m
 <i>See full framework …</i>
 <img src="img/framework.png" align="center" alt="" width="900" />
 
-<b>Bias mitigation methods<b> are employed to address bias in data and/or machine learning models and <b>fairness metrics</b> are needed to mathematically represent the fairness or bias levels of a ML model.</br>
+<b>Bias mitigation methods</b> are employed to address bias in data and/or machine learning models and <b>fairness metrics</b> are needed to mathematically represent the fairness or bias levels of a ML model.</br>
 
-Many mitigation methods have been proposed in the literature, which can be broadly classified into the application of a mitigation method on the data set (<b>pre-processing<b>), in the model fitting (<b>in-processing</b>), and to the model predictions (<b>post-processing</b>). Since a typical mitigation method is generally designed to improve some specific fairness metric(s), it is crucial to select the appropriate mitigation methods once the fairness metrics are chosen.</br>
+Many mitigation methods have been proposed in the literature, which can be broadly classified into the application of a mitigation method on the data set (<b>pre-processing</b>), in the model fitting (<b>in-processing</b>), and to the model predictions (<b>post-processing</b>). Since a typical mitigation method is generally designed to improve some specific fairness metric(s), it is crucial to select the appropriate mitigation methods once the fairness metrics are chosen.</br>
 
 There are many different interpretations of what it means for an algorithm to be “fair”. For binary classification problems, fairness metrics can be broadly classified into group fairness metrics and individual and counterfactual fairness metrics. Group fairness metrics can be further classified into parity-based metrics, confusion matrix-based metrics, calibration metrics, and prediction score-based metrics. </br>
 
