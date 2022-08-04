@@ -30,6 +30,18 @@ ml_model <- function(data_input, target_var, ml_method, param_ml = NULL) {
   training_data <- data_input$training
   # testing data
   testing_data <- data_input$testing
+  
+  # Check: ignore protected variable for ML model training
+  if("ignore_protected"  %in% names(param_ml)){
+    if(param_ml$ignore_protected == TRUE){
+      training_data <- var_rem(training_data, param_ml$protected)
+      testing_data <- var_rem(testing_data, param_ml$protected)
+      print('Warning: Protected variable not included in ML training')
+      print(paste('Protected variable: ', param_ml$protected))
+    }
+  }
+  print(paste('Training data (dimensions): ', nrow(training_data),ncol(training_data)))
+  print(paste('Testing data (dimensions): ', nrow(testing_data),ncol(testing_data)))
   # Machine learning method - Random Forest (RF)
   if(tolower(ml_method) == "rf"){
     ml_results = ml_model_rf(training_data, testing_data, target_var, param_ml)

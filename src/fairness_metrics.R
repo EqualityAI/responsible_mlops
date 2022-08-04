@@ -25,8 +25,18 @@ fairness_metric <- function(ml_model_trained, data_input, target_var, param_fair
   # conversion of targeted variable to numeric
   data_input[[target_var]] <- as.numeric(as.character(data_input[[target_var]]))
   
-  mdl_explain <- model_explain(ml_model_trained, data_input, target_var)
-
+  # Check: ignore protected variable for model explanation
+  if("ignore_protected"  %in% names(param_fairness_metric)){
+    if(param_fairness_metric$ignore_protected == TRUE){
+      # removing protected variable from model explanation calculation
+      data_explain <- var_rem(data_input, param_fairness_metric$protected)
+      print('Warning: Protected variable not included in model explanation')
+    }
+    else{
+      data_explain <- data_input
+    }
+    mdl_explain <- model_explain(ml_model_trained, data_explain, target_var)
+  }
   fairness_score <- model_fairness(mdl_explain$explain, data_input, protected_var, privileged_class)
   
   predictive_equality <- fairness_score$object$fairness_check_data$score[3]

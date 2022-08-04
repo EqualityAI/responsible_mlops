@@ -89,10 +89,10 @@ print(paste('Clean data (dimensions): ', nrow(data_clean$data),ncol(data_clean$d
 train_data_size = 0.7
 data_clean <- train_test_split(data_clean$data, target_var, train_size = train_data_size)
 # removing protected variable from the data for ML model training and prediction
-train_protected_var <- data_clean$training$RACERETH
-test_protected_var <- data_clean$testing$RACERETH
-data_clean$training <- var_rem(data_clean$training, protected_var)
-data_clean$testing <- var_rem(data_clean$testing, protected_var)
+# train_protected_var <- data_clean$training$RACERETH
+# test_protected_var <- data_clean$testing$RACERETH
+# data_clean$training <- var_rem(data_clean$training, protected_var)
+# data_clean$testing <- var_rem(data_clean$testing, protected_var)
 
 
 # Data balancing
@@ -110,12 +110,14 @@ print('-----------------------------------------------------------------------')
 # # "rf" - Random Forest
 # # "gbm" - Gradient Boosting Machine
 # # Parameters related to ML model
-# param_ml <- list(ntree = 500, mtry = 6)
+# param_ml <- list(ntree = 500, mtry = 6, "ignore_protected" = TRUE,  "protected" = protected_var)
 # # data_clean: training/testing
 # ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
 
+
 ml_method <- "gbm"
-ml_output = ml_model(data_clean, target_var, ml_method)
+param_ml <- list("ntree" = 500, "mtry" = 6, "ignore_protected" = TRUE,  "protected" = protected_var)
+ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
 
 
 pred_class <-ml_output$class
@@ -146,7 +148,7 @@ print(paste('AUC: ', ml_res$AUC))
 print('-----------------------------------------------------------------------')
 print('FAIRNESS METRIC')
 print('-----------------------------------------------------------------------')
-param_fairness_metric = list("protected" = protected_var, "privileged" = privileged_class)
+param_fairness_metric = list("ignore_protected" = TRUE, "protected" = protected_var, "privileged" = privileged_class)
 fairness_scores <- fairness_metric(ml_output$model, data_clean$testing, target_var, param_fairness_metric)
 fairness_score <- fairness_scores[[fairness_method]]
 print(paste('Fairness Metric: ', fairness_method,', Score: ', fairness_score))
@@ -166,18 +168,18 @@ print('=======================================================================')
 print('STAGE 4 - RE-EVALUATION')
 print('=======================================================================')
 if(reevaluate_method == TRUE){
-  param_reevaluate_algorithm <- list("protected" = protected_var, "privileged" = privileged_class,
+  param_reevaluate_algorithm <- list("ignore_protected" = TRUE, "protected" = protected_var, "privileged" = privileged_class,
                                      "param_ml" = param_ml)
   if(names(training_data_m) == "data"){
     data_reevaluation <- list("type" = names(training_data_m), "training" = training_data_m$data, "testing" = testing_data_m$data)
   }
   else if(names(training_data_m) == "weight"){
     param_reevaluate_algorithm[["param_ml"]][["weights"]] <- training_data_m$weight
-    data_reevaluation <- list("type" = names(training_data_m), "training" = data_clean$training, "testing" = data_clean$testing)
+    data_reevaluation <- list("ignore_protected" = TRUE, "type" = names(training_data_m), "training" = data_clean$training, "testing" = data_clean$testing)
     param_reevaluate_algorithm[["param_ml"]][["weights"]] <- NULL
   }
   else if(names(training_data_m) == "index"){
-    data_reevaluation <- list("type" = names(training_data_m), "training" = data_clean$training, "testing" = data_clean$testing, 
+    data_reevaluation <- list("ignore_protected" = TRUE, "type" = names(training_data_m), "training" = data_clean$training, "testing" = data_clean$testing, 
                               "index" = training_data_m$index)
   }
   res_reval <- reevaluate_algorithm(ml_method, data_reevaluation, target_var, param_reevaluate_algorithm)
