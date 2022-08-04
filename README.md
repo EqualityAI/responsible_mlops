@@ -19,13 +19,12 @@ Are you concerned that [data and algorithmic biases]() lead to machine learning 
 </sub>
 
 </br>Fairness-based ML offers a potential solution by incorporating bias mitigation methods and fairness metrics into the traditional end-to-end MLOps.  Fairness is a principle of Responsible AI, an emerging framework for how artificial intelligence systems should be developed, deployed, and governed to comply with ethics and laws. 
- 
-<i>See full framework …</i>
+
 <img src="img/framework.png" align="center" alt="" width="900" />
 <sub><b>Figure 2:</b> Full Responsible AI Framework.
 </sub>
 
-<b>Bias mitigation methods</b> are employed to address bias in data and/or machine learning models and <b>fairness metrics</b> are needed to mathematically represent the fairness or bias levels of a ML model.</br>
+</br><b>Bias mitigation methods</b> are employed to address bias in data and/or machine learning models and <b>fairness metrics</b> are needed to mathematically represent the fairness or bias levels of a ML model.</br>
 
 Many mitigation methods have been proposed in the literature, which can be broadly classified into the application of a mitigation method on the data set (<b>pre-processing</b>), in the model fitting (<b>in-processing</b>), and to the model predictions (<b>post-processing</b>). Since a typical mitigation method is generally designed to improve some specific fairness metric(s), it is crucial to select the appropriate mitigation methods once the fairness metrics are chosen.</br>
 
