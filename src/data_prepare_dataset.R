@@ -1,164 +1,8 @@
 #===============================================================================
-# DATA PREPARATION RECRIPES (Sample Datasets)
+# DATA PREPARATION RECIPES (Sample Datasets)
 #===============================================================================
 data_prepare_nhamcs <- function(data_input, target_var, method_options) {
-  #=============================================================================
-  # SPRINT 4 METHOD
-  #=============================================================================
-  if(method_options$method_prepare == 'default'){
-    # Only applicable to data after 2017
-    # Replacing blank value identifier with empty value
-    # Replacing unknown value identifier with empty value
-    # Creating a target variable based on multiple attributes available in the dataset
-    data_input$HOS=NA
-    data_input$HOS[data_input$TRANPSYC==1 | data_input$TRANOTH==1 | data_input$ADMITHOS==1 | data_input$OBSHOS==1] <- 1
-    data_input$HOS[is.na(data_input$HOS)] <- 0
-    data_input$IMMEDR[data_input$IMMEDR == -9|data_input$IMMEDR == -8 |data_input$IMMEDR == 0|data_input$IMMEDR == 7 ]<- ''
-    data_input$SEEN72[data_input$SEEN72==-8 | data_input$SEEN72==-9 | data_input$SEEN72==0 |data_input$SEEN72==3]<-''
-    data_input$ARREMS[data_input$ARREMS==-8 | data_input$ARREMS==-9]<-''
-    data_input$RESIDNCE[data_input$RESIDNCE==-8 | data_input$RESIDNCE==-9]<-''
-    data_input$PAYTYPER[data_input$PAYTYPER==-8 | data_input$PAYTYPER==-9]<-''
-    data_input$TEMPF[data_input$TEMPF==-8 | data_input$TEMPF==-9]<-''
-    data_input$RESPR[data_input$RESPR==-9]<-''
-    data_input$PULSE[data_input$PULSE==-8 | data_input$PULSE==998|data_input$PULSE==-9]<-''
-    data_input$BPDIAS[data_input$BPDIAS==-8 | data_input$BPDIAS==998|data_input$BPDIAS==-9]<-''
-    data_input$BPSYS[data_input$BPSYS==-8 | data_input$BPSYS==998| data_input$BPSYS==-9]<-''
-    data_input$POPCT[data_input$POPCT==-8 | data_input$POPCT==-9]<-''
-    data_input$INJPOISAD[data_input$INJPOISAD==-8 | data_input$INJPOISAD==-9]<-''
-    data_input$EPISODE[data_input$EPISODE==-8 | data_input$EPISODE==-9]<-''
-    data_input$PAINSCALE[data_input$PAINSCALE==-8 | data_input$PAINSCALE==-9]<-''
-    data_input$ARRTIME[data_input$ARRTIME==-8 | data_input$ARRTIME==-9]<-''
-    # conversion to numeric
-    data_input$ARRTIME<-as.numeric(data_input$ARRTIME)
-    # 500 means 5 am, 1700 means 5 pm
-    # converting arrival time range into different categories
-    data_input$ARRTIME<-as.numeric(data_input$ARRTIME)
-    data_input$ARRTIME[data_input$ARRTIME<=2400&data_input$ARRTIME>2000]<-0
-    data_input$ARRTIME[data_input$ARRTIME<=500&data_input$ARRTIME>0]<-0
-    data_input$ARRTIME[data_input$ARRTIME<=1200 &data_input$ARRTIME>500]<-1
-    data_input$ARRTIME[data_input$ARRTIME<=1700&data_input$ARRTIME>1200]<-2
-    data_input$ARRTIME[data_input$ARRTIME<=2000&data_input$ARRTIME>1700]<-3
-    
-    #data_input$ARRTIME[is.na(data_input$ARRTIME)] <- NA
-    # --------------------------------------------------------------------------
-    # Missing Values
-    # --------------------------------------------------------------------------
-    # replacing missing values with median value
-    for(i in 1:ncol(data_input)){
-      data_input[ , i][is.na(data_input[ , i])] <- median(data_input[ , i], na.rm = TRUE)
-    }
-    # --------------------------------------------------------------------------
-    # Feature Engineering
-    # --------------------------------------------------------------------------
-    data_input <- data_input[,c('HOS', 'YEAR', 'VMONTH', 'VDAYR', 'ARRTIME', 'AGE', 'SEX', 'RESIDNCE',
-                                'PAYTYPER', 'RACERETH','ARREMS', 'TEMPF', 'PULSE', 'RESPR', 'BPSYS', 'BPDIAS', 'POPCT',
-                                'PAINSCALE', 'SEEN72', 'EPISODE', 'INJPOISAD', 'ETOHAB',	'ALZHD', 'ASTHMA', 'CANCER',
-                                'CEBVD', 'CKD',	'COPD', 'CHF', 'CAD',	'DEPRN',	'DIABTYP1','DIABTYP2', 'DIABTYP0',	'ESRD',
-                                'HPE',	'EDHIV',	'HYPLIPID', 'HTN',	'OBESITY',	'OSA',	'OSTPRSIS',	'SUBSTAB', 'IMMEDR')]
-    # --------------------------------------------------------------------------
-    # Data Filtering
-    # --------------------------------------------------------------------------
-    # Using only adult subjects
-    data_input<-subset(data_input,data_input$AGE>=18)
-    # Using only black and white race "RACERETH"
-    # Note: RACERETH -->(1:White, 2:Black, 3:Hispanic, 4:Other)
-    # New Update: White:0, Black: 1
-    # New Update: No Hospital: 0, Hospital: 1
-    data_input<-subset(data_input,data_input$RACERETH==1 | data_input$RACERETH==2)
-    rownames(data_input) <- NULL
-    # --------------------------------------------------------------------------
-    # Data Type Conversion
-    # --------------------------------------------------------------------------
-    data_input$YEAR = as.factor(data_input$YEAR)
-    # Target variable conversion
-    data_input[[target_var]] <- as.numeric(data_input[[target_var]])
-    # --------------------------------------------------------------------------
-    data_ = list("data" = data_input)
-    return(data_)
-  }
-  # Data clean recipes for sample NHAMCS dataset 
-  else if(method_options$method_prepare == 'sprint4-update'){
-    data_input$HOS=NA
-    data_input$HOS[data_input$TRANPSYC==1 | data_input$TRANOTH==1 | data_input$ADMITHOS==1 | data_input$OBSHOS==1] <- 1
-    data_input$HOS[is.na(data_input$HOS)] <- 0
-    
-    # Missing or unknown or blank values for each variables
-    data_input$IMMEDR[data_input$IMMEDR == -9|data_input$IMMEDR == -8 |data_input$IMMEDR == 0|data_input$IMMEDR == 7 ]<- ''
-    data_input$SEEN72[data_input$SEEN72==-8 | data_input$SEEN72==-9 | data_input$SEEN72==0 |data_input$SEEN72==3]<-''
-    data_input$ARREMS[data_input$ARREMS==-8 | data_input$ARREMS==-9]<-''
-    data_input$RESIDNCE[data_input$RESIDNCE==-8 | data_input$RESIDNCE==-9]<-''
-    data_input$PAYTYPER[data_input$PAYTYPER==-8 | data_input$PAYTYPER==-9]<-''
-    data_input$TEMPF[data_input$TEMPF==-8 | data_input$TEMPF==-9]<-''
-    data_input$RESPR[data_input$RESPR==-9]<-''
-    data_input$PULSE[data_input$PULSE==-8 | data_input$PULSE==998|data_input$PULSE==-9]<-''
-    data_input$BPDIAS[data_input$BPDIAS==-8 | data_input$BPDIAS==998|data_input$BPDIAS==-9]<-''
-    data_input$BPSYS[data_input$BPSYS==-8 | data_input$BPSYS==998| data_input$BPSYS==-9]<-''
-    data_input$POPCT[data_input$POPCT==-8 | data_input$POPCT==-9]<-''
-    data_input$INJPOISAD[data_input$INJPOISAD==-8 | data_input$INJPOISAD==-9]<-''
-    data_input$EPISODE[data_input$EPISODE==-8 | data_input$EPISODE==-9]<-''
-    data_input$PAINSCALE[data_input$PAINSCALE==-8 | data_input$PAINSCALE==-9]<-''
-    data_input$ARRTIME[data_input$ARRTIME==-8 | data_input$ARRTIME==-9]<-''
-    
-    # 500 means 5 am, 1700 means 5 pm
-    # converting arrival time range into different categories
-    data_input$ARRTIME<-as.numeric(data_input$ARRTIME)
-    data_input$ARRTIME[data_input$ARRTIME<=2400&data_input$ARRTIME>2000]<-0
-    data_input$ARRTIME[data_input$ARRTIME<=500&data_input$ARRTIME>0]<-0
-    data_input$ARRTIME[data_input$ARRTIME<=1200 &data_input$ARRTIME>500]<-1
-    data_input$ARRTIME[data_input$ARRTIME<=1700&data_input$ARRTIME>1200]<-2
-    data_input$ARRTIME[data_input$ARRTIME<=2000&data_input$ARRTIME>1700]<-3
-    
-    
-    data_input <- data_input[,c('HOS','YEAR','VMONTH', 'VDAYR', 'ARRTIME', 'AGE', 'SEX', 'RESIDNCE',
-                                'PAYTYPER', 'RACERETH','ARREMS', 'TEMPF', 'PULSE',
-                                'RESPR', 'BPSYS', 'BPDIAS', 'POPCT', 'PAINSCALE', 'SEEN72','EPISODE',
-                                'INJPOISAD', 'ETOHAB',	'ALZHD',	'ASTHMA',	'CANCER',	'CEBVD',
-                                'CKD',	'COPD', 'CHF','CAD', 'DEPRN',	'DIABTYP1',
-                                'DIABTYP2',	'DIABTYP0',	'ESRD',	'HPE',	'EDHIV',	'HYPLIPID',
-                                'HTN',	'OBESITY',	'OSA',	'OSTPRSIS',	'SUBSTAB', 'IMMEDR')]
-    
-    
-    # transform category and binary variables into factors
-    factor_var <- c('YEAR','VMONTH', 'VDAYR', 'ARRTIME', 'SEX', 'RESIDNCE',
-                    'PAYTYPER', 'RACERETH','ARREMS', 'PAINSCALE', 'SEEN72','EPISODE',
-                    'INJPOISAD', 'ETOHAB',	'ALZHD',	'ASTHMA',	'CANCER',	'CEBVD',
-                    'CKD',	'COPD', 'CHF','CAD', 'DEPRN',	'DIABTYP1',
-                    'DIABTYP2',	'DIABTYP0',	'ESRD',	'HPE',	'EDHIV',	'HYPLIPID',
-                    'HTN',	'OBESITY',	'OSA',	'OSTPRSIS',	'SUBSTAB', 'IMMEDR')
-    data_input[,factor_var] <- lapply(data_input[,factor_var] , factor)
-    
-    num_var <- c('AGE', 'TEMPF', 'PULSE','RESPR', 'BPSYS', 'BPDIAS', 'POPCT')
-    data_input[,num_var] <- sapply(data_input[,num_var] , as.numeric)
-    # --------------------------------------------------------------------------
-    # Missing Values
-    # --------------------------------------------------------------------------
-    # replacing missing values with median value
-    for(i in 1:ncol(data_input)){
-      data_input[ , i][is.na(data_input[ , i])] <- median(data_input[ , i], na.rm = TRUE)
-    }
-    # --------------------------------------------------------------------------
-    # Data Filtering
-    # --------------------------------------------------------------------------
-    # Using only adult subjects
-    data_input<-subset(data_input,data_input$AGE>=18)
-    # Using only black and white race "RACERETH"
-    # Note: RACERETH -->(1:White, 2:Black, 3:Hispanic, 4:Other)
-    # New Update: White:0, Black: 1
-    # New Update: No Hospital: 0, Hospital: 1
-    data_input<-subset(data_input,data_input$RACERETH==1 | data_input$RACERETH==2)
-    rownames(data_input) <- NULL
-    # --------------------------------------------------------------------------
-    # Data Type Conversion
-    # --------------------------------------------------------------------------
-    data_input$YEAR = as.factor(data_input$YEAR)
-    # Target variable conversion
-    data_input[[target_var]] <- as.numeric(data_input[[target_var]])
-    # --------------------------------------------------------------------------
-    data_ = list("data" = data_input)
-    return(data_)
-  }
-  
-  else if((method_options$method_prepare =='Zhang') | (method_options$method_prepare =='Raita')) {
+  if((method_options$method_prepare =='Zhang') | (method_options$method_prepare =='Raita')) {
     # Generate hospiatal admission (target variable) variable based on multiple attributes available in the data_inputset
     data_input$HOS=NA
     data_input$HOS[data_input$TRANPSYC==1 | data_input$TRANOTH==1 | data_input$ADMITHOS==1 | data_input$OBSHOS==1] <- 1
@@ -298,10 +142,11 @@ data_prepare_nhamcs <- function(data_input, target_var, method_options) {
     # Data Types
     #data_input[[target_var]] <- as.numeric(data_input[[target_var]])
     data_input <- data.frame(sapply(data_input, as.numeric ))
-    data_input$YEAR = as.factor(data_input$YEAR)
+    
+    #data_input$YEAR = as.factor(data_input$YEAR)
+    data_input <- data_input[colnames(data_input) != "YEAR"]
+    
     data_ = list("data" = data_input)
     return(data_)
   }
 }
-
-

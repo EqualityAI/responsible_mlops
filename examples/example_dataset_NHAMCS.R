@@ -88,20 +88,15 @@ print(paste('Clean data (dimensions): ', nrow(data_clean$data),ncol(data_clean$d
 # Data split
 train_data_size = 0.7
 data_clean <- train_test_split(data_clean$data, target_var, train_size = train_data_size)
-# removing protected variable from the data for ML model training and prediction
-# train_protected_var <- data_clean$training$RACERETH
-# test_protected_var <- data_clean$testing$RACERETH
-# data_clean$training <- var_rem(data_clean$training, protected_var)
-# data_clean$testing <- var_rem(data_clean$testing, protected_var)
 
 
-# Data balancing
+# Data balancing (Optional)
 # method_balancing <- "under"
 # # e.g "under": under-sampling, "over": over-sampling
 # data_clean$training <- data_balancing(data_clean$training,target_var, method_balancing)
 
 
-# Note: first column as target variable
+# Note: first column as target variable in the data
 #===============================================================================
 print('-----------------------------------------------------------------------')
 print('MACHINE LEARNING')
