@@ -19,6 +19,10 @@ Are you concerned that [data and algorithmic biases]() lead to machine learning 
 
 the <span style="font-size:larger;">word</span>
 
+Here is an inline note.^[Inlines notes are easier to write, since
+you don't have to pick an identifier and move down to type the
+note.]
+
 
 
 
