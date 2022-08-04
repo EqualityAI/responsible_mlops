@@ -14,25 +14,13 @@ Give us a  :star: if you like our [EAI Manifesto](https://equalityai.com/)!</br>
 ### Fairness-based Machine Learning (Pre-processing)
 Are you concerned that [data and algorithmic biases]() lead to machine learning models that treat individuals unfavorably on the basis of characteristics such as race, gender or political orientation? Do you want to address fairness in machine learning but do not know where to start?   
 
+Figure 1: An infographic showing the long term consequences of bias finding its way into our data in one example, the health sector (image from the British Medical Journal).
 <img src="img/infographic.png" align="center" alt="" width="200%" />
-~Figure 1: An infographic showing the long term consequences of bias finding its way into our data in one example, the health sector (image from the British Medical Journal).~
 
-the <span style="font-size:larger;">word</span>
-
-Here is an inline note.^[Inlines notes are easier to write, since
-you don't have to pick an identifier and move down to type the
-note.]
-
-
-
-
-<details>
-  <summary><font size="2"><i>More studies ...</i></font></summary>
-  <hr/>
-  </details>
-
-Data scientists are the newest members of the healthcare team, and as such, the Hippocratic Oath applies:  First do no harm.  Developers must accept greater responsibility to ensure the ML models they develop do no harm.  Unfortunately, the typical tools and MLOps workflows available to developers have proven to be insufficient for this task. Responsible AI is an emerging framework that addresses this need and helps mitigate the potential risks of harm from AI and includes ethics, fairness, accuracy, security, and privacy.  
-  <img src="img/framework.png" align="center" alt="" width="900" />
+Fairness-based ML offers a potential solution by incorporating bias mitigation methods and fairness metrics into the traditional end-to-end MLOps.  Fairness is a principle of Responsible AI, an emerging framework for how artificial intelligence systems should be developed, deployed, and governed to comply with ethics and laws. 
+ 
+<i>See full framework …</i>
+<img src="img/framework.png" align="center" alt="" width="900" />
 
 
 ## `responsible_mlops` 
