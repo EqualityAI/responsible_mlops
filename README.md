@@ -6,10 +6,17 @@
 
 [Equality AI (EAI)](https://equalityai.com/) is a public benefit corporation dedicated to closing the health disparity gap by assembling a Responsible AI framework into a MLOps Developer Studio (alpha coming soon Autumn 2022) that includes modernized, end-to-end machine learning (ML) operations (Ops) with functions that can be selectively incorporated to create various workflows designed to produce equitable, responsible models. </b>
 
-<b>[Read our EAI Manifesto]([https://equalityai.com#manifesto](https://github.com/EqualityAI/responsible_mlops/blob/main/MANIFESTO.md)) and star this repo to show your support!!!</b>
+We have released the technology behind our Responsible MLOPs Studio on GitHub as an open source ML software framework and tool, called `responsible_mlops’.
 
-## What is Responsible AI?
-In 2019, [Obermeyer et al.]() revealed a Healthcare commercial prediction algorithm affecting the care of millions of patients <font size="5"><i>exhibiting significant racial bias</i></font> that had gone <b><font size="5">undetected</font></b>, resulting in <b><font size="5">Black patients</font></b> with complex medical needs not qualifying for extra care, despite being considerably sicker than White patients. Recent scrutiny of machine learning (ML) usage in healthcare systems has revealed numerous examples of harmful medical decisions made at the <b><font size="5">expense of minority and vulnerable populations.</font></b> Medical professionals and researchers relying on ML models to assist in decision making are often unaware of the bias unintentionally introduced into algorithms by real-world data that incorporates inherent unfairness and produces biased outcomes that widen the gap in healthcare inequity.   
+Give us a (put icon) star if you like our EAI Manifesto(https://equalityai.com/)!
+
+## Fairness-based Machine Learning (Pre-processing)
+Are you concerned that [data and algorithmic biases]() lead to machine learning models that treat individuals unfavorably on the basis of characteristics such as race, gender or political orientation? Do you want to address fairness in machine learning but do not know where to start?   
+
+<img src="img/framework.png" align="center" alt="" width="900" />
+
+
+
 
 <details>
   <summary><font size="2"><i>More studies ...</i></font></summary>
