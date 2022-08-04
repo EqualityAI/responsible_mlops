@@ -17,9 +17,8 @@ Are you concerned that [data and algorithmic biases]() lead to machine learning 
 <img src="img/infographic.png" align="center" alt="" width="200%" />
 <sub><b>Figure 1:</b> An infographic showing the long term consequences of bias finding its way into our data in one example, the health sector (image from the British Medical Journal).
 </sub>
-</br>
 
-Fairness-based ML offers a potential solution by incorporating bias mitigation methods and fairness metrics into the traditional end-to-end MLOps.  Fairness is a principle of Responsible AI, an emerging framework for how artificial intelligence systems should be developed, deployed, and governed to comply with ethics and laws. 
+</br>Fairness-based ML offers a potential solution by incorporating bias mitigation methods and fairness metrics into the traditional end-to-end MLOps.  Fairness is a principle of Responsible AI, an emerging framework for how artificial intelligence systems should be developed, deployed, and governed to comply with ethics and laws. 
  
 <i>See full framework …</i>
 <img src="img/framework.png" align="center" alt="" width="900" />
