@@ -1,35 +1,3 @@
-
-
-
-# data_prepare <- function(data_input, params){
-#   
-#   # Feature Engineering (One hot encoding)
-#   if(params$encoding == TRUE){
-#     data_ = encoding_onehot(data_input$training, data_input$testing)
-#     
-#     training_data <- data_$training
-#     testing_data <- data_$testing
-#     
-#     training_data$readmitted <- as.factor(training_data$readmitted)
-#     testing_data$readmitted <- as.factor(testing_data$readmitted)
-#     
-#     data_input = list("training" = training_data, "testing" = testing_data)
-#   }
-#   
-#   # Feature Engineering (Factor variables)
-#   if(params$factor == TRUE){
-#     data_ = factor_variables(data_input$training)
-#     training_data <- data_$data
-#     
-#     data_ = factor_variables(data_input$testing)
-#     testing_data <- data_$data
-#     
-#     data_input = list("training" = training_data, "testing" = testing_data)
-#   }
-#   
-#   return(data_input)
-#   
-# }
 #====================================================================
 # ONE HOT ENCODING
 #====================================================================
@@ -42,50 +10,6 @@ encoding_onehot <- function(training_data, testing_data) {
   
   return(data)
 }
-
-
-#====================================================================
-# FACTOR VARIABLES
-#====================================================================
-factor_variables <- function(data_input) {
-  # target variable (as numeric)
-  
-  data_input$readmitted <- as.numeric(data_input$readmitted) 
-  
-  
-  data_input$gender = as.factor(data_input$gender)
-  data_input$race = as.factor(data_input$race)
-  data_input$age = as.factor(data_input$age)
-  data_input$discharge_disposition = as.factor(data_input$discharge_disposition)
-  data_input$max_glu_serum = as.factor(data_input$max_glu_serum)
-  data_input$A1Cresult = as.factor(data_input$A1Cresult)
-  data_input$metformin = as.factor(data_input$metformin)
-  data_input$insulin = as.factor(data_input$insulin)
-  data_input$change = as.factor(data_input$change)
-  data_input$diabetesMed = as.factor(data_input$diabetesMed)
-  
-  data = list("data" = data_input)
-  
-  return(data)
-  
-}
-
-#=============================================================================
-# MISSING VALUES
-#===============================================================================
-# Method 1: Remove rows having missing values >= 1
-# Method 2: Mice package multiple imputations (predicting value using other features) [Single Imputation]
-# [numeric, factor (ordered, unordered)] --> Data Types needed (James)
-# Method 3: Random Forest for prediction (Single Imputation)
-
-#data_missing_values <- function(data_input, method_missing, param_missing)
-# Input:
-# data_input - columns are of data type numeric or factor
-# param_missing - list
-  
-  
-# Output
-# data_
 #=============================================================================
 # DATA SPLIT (TRAIN, TEST)
 #===============================================================================
@@ -102,8 +26,6 @@ train_test_split <- function(data_input, target_var, train_size = 0.7) {
   data_ = list("training" = training_data, "testing" = testing_data)
   return(data_)
 }
-
-
 #=============================================================================
 # DATA BALANCING
 #===============================================================================
@@ -127,9 +49,40 @@ data_balancing <- function(data_input, target_var, method_balancing) {
   return(data_input)
 }
 
-#=============================================================================
+#===============================================================================
+# FILTER PROTECTED VARIABLE
+#===============================================================================
+var_rem <- function(data_input, var_rem) {
+  # Remove variables from the data based on the given variable list 'var_list'
+  #
+  # INPUT
+  # data_input (data.frame)     : Input data in dataframe format
+  # var_list (character)        : Name of the variable to be removed
+  #
+  # OUTPUT
+  # data_ (data.frame)          : Data after removing specific variables
+  #
+  # ----------------------------------------------------------------------------
+  data_input <- data_input[colnames(data_input) != var_rem]
+  return(data_input)
+}
+
+#===============================================================================
 # MISSING VALUES
 #===============================================================================
+# Method 1: Remove rows having missing values >= 1
+# Method 2: Mice package multiple imputations (predicting value using other features) [Single Imputation]
+# [numeric, factor (ordered, unordered)] --> Data Types needed (James)
+# Method 3: Random Forest for prediction (Single Imputation)
+
+#data_missing_values <- function(data_input, method_missing, param_missing)
+# Input:
+# data_input - columns are of data type numeric or factor
+# param_missing - list
+
+
+# Output
+# data_
 data_prep_missing_values = function(data_input, method_missing, param_missing=list("max_iter_mi"=50, "max_iter_rf"=5)){
   # library required: mice, missForest
   
