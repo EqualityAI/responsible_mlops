@@ -12,7 +12,7 @@ Give us a  :star: if you like our [EAI Manifesto](https://equalityai.com/)!</br>
 <img src="img/star.png" align="center" alt="" width="400" />
 
 ### Fairness-based Machine Learning (Pre-processing)
-Are you concerned that [data and algorithmic biases]() lead to machine learning models that treat individuals unfavorably on the basis of characteristics such as race, gender or political orientation? Do you want to address fairness in machine learning but do not know where to start?   
+> Are you concerned that [data and algorithmic biases]() lead to machine learning models that treat individuals unfavorably on the basis of characteristics such as race, gender or political orientation? Do you want to address fairness in machine learning but do not know where to start?   
 
 <img src="img/infographic.png" align="center" alt="" width="200%" />
 <sub><b>Figure 1:</b> An infographic showing the long term consequences of bias finding its way into our data in one example, the health sector (image from the British Medical Journal).
