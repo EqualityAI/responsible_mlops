@@ -214,7 +214,7 @@ ml_model_gbm <- function(training_data, testing_data, target_var, param_ml) {
   #
   # ----------------------------------------------------------------------------
   # Training Classifier
-  ml_clf = gbm_train(training_data, target_var, param_ml)
+  mdl_clf = gbm_train(training_data, target_var, param_ml)
   
   # Testing Classifier
   ml_res = gbm_test(testing_data, target_var, mdl_clf,param_ml)
