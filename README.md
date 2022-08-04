@@ -15,8 +15,8 @@ Give us a  :star: if you like our [EAI Manifesto](https://equalityai.com/)!</br>
 Are you concerned that [data and algorithmic biases]() lead to machine learning models that treat individuals unfavorably on the basis of characteristics such as race, gender or political orientation? Do you want to address fairness in machine learning but do not know where to start?   
 
 <img src="img/infographic.png" align="center" alt="" width="200%" />
-<sub>**Figure 1:** An infographic showing the long term consequences of bias finding its way into our data in one example, the health sector (image from the British Medical Journal).
-</sub>
+<sub><b>Figure 1:</b> An infographic showing the long term consequences of bias finding its way into our data in one example, the health sector (image from the British Medical Journal).
+</sub></br>
 
 Fairness-based ML offers a potential solution by incorporating bias mitigation methods and fairness metrics into the traditional end-to-end MLOps.  Fairness is a principle of Responsible AI, an emerging framework for how artificial intelligence systems should be developed, deployed, and governed to comply with ethics and laws. 
  
