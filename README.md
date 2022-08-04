@@ -11,11 +11,6 @@ We have released the technology behind our Responsible MLOPs Studio on GitHub as
 Give us a  :star: if you like our [EAI Manifesto](https://equalityai.com/)!</br>
 <img src="img/star.png" align="center" alt="" width="400" />
 
-
-<span style="color:green;font-weight:700;font-size:20px"> 
-markdown color font styles
-</span>
-
 ## Fairness-based Machine Learning (Pre-processing)
 Are you concerned that [data and algorithmic biases]() lead to machine learning models that treat individuals unfavorably on the basis of characteristics such as race, gender or political orientation? Do you want to address fairness in machine learning but do not know where to start?   
 
