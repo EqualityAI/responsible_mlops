@@ -106,15 +106,17 @@ data_clean$testing <- var_rem(data_clean$testing, protected_var)
 print('-----------------------------------------------------------------------')
 print('MACHINE LEARNING')
 print('-----------------------------------------------------------------------')
-# Training and testing machine learning model
-# Machine learning (ML) method
-ml_method <- "rf"
-# "rf" - Random Forest
-# "gbm" - Gradient Boosting Machine
-# Parameters related to ML model
-param_ml <- list(ntree = 500, mtry = 6)
-# data_clean_> training/testing
-ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
+# ml_method <- "rf"
+# # "rf" - Random Forest
+# # "gbm" - Gradient Boosting Machine
+# # Parameters related to ML model
+# param_ml <- list(ntree = 500, mtry = 6)
+# # data_clean: training/testing
+# ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
+
+ml_method <- "gbm"
+ml_output = ml_model(data_clean, target_var, ml_method)
+
 
 pred_class <-ml_output$class
 pred_prob <-ml_output$probability
