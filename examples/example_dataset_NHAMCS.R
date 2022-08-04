@@ -48,7 +48,6 @@ dataset_name <- "NHAMCS"
 # path_dataset (input from user)
 data_raw = data_fetch(data_name=dataset_name)
 
-# User Input 
 target_var <- "HOS"
 protected_var <- "RACERETH"
 privileged_class <- 1
@@ -62,7 +61,7 @@ print(paste('Privileged class: ', privileged_class))
 print('-----------------------------------------------------------------------')
 print('FAIRNESS & MITIGATION RECOMMENDATION')
 print('-----------------------------------------------------------------------')
-# # Fairness metric questionnaire
+# Fairness metric questionnaire
 fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',')
 #fairness_tree_info <- read_csv(file.path(getwd(),"config","fairness_tree.csv"))
 fairness_metric_tree <- fairness_tree_metric(fairness_tree_info) 
@@ -85,13 +84,18 @@ method_options<-list(method_prepare='Zhang',method_missing='mi_impute',max_iter=
 # Data clean
 data_clean <- data_prepare_nhamcs(data_raw$data, data_raw$target_variable, method_options)
 print(paste('Clean data (dimensions): ', nrow(data_clean$data),ncol(data_clean$data)))
-
+  
 # Data split
 train_data_size = 0.7
 data_clean <- train_test_split(data_clean$data, target_var, train_size = train_data_size)
-   
+# removing protected variable from the data for ML model training and prediction
+train_protected_var <- data_clean$training$RACERETH
+test_protected_var <- data_clean$testing$RACERETH
+data_clean$training <- var_rem(data_clean$training, protected_var)
+data_clean$testing <- var_rem(data_clean$testing, protected_var)
 
-# # Data balancing
+
+# Data balancing
 # method_balancing <- "under"
 # # e.g "under": under-sampling, "over": over-sampling
 # data_clean$training <- data_balancing(data_clean$training,target_var, method_balancing)
@@ -99,6 +103,7 @@ data_clean <- train_test_split(data_clean$data, target_var, train_size = train_d
 
 # Note: first column as target variable
 #===============================================================================
+# ML - METHOD I
 print('-----------------------------------------------------------------------')
 print('MACHINE LEARNING')
 print('-----------------------------------------------------------------------')
@@ -108,7 +113,7 @@ ml_method <- "rf"
 # "rf" - Random Forest
 # "gbm" - Gradient Boosting Machine
 # Parameters related to ML model
-param_ml <- list(ntree = 500)
+param_ml <- list(ntree = 500, mtry = 6)
 # data_clean_> training/testing
 ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
 
@@ -130,6 +135,45 @@ print(paste('precision: ', ml_res$precision))
 print(paste('F1: ', ml_res$F1))
 print(paste('Classification Accuracy: ', ml_res$accuracy))
 print(paste('AUC: ', ml_res$AUC))
+#===============================================================================
+# ML - METHOD II
+print('-----------------------------------------------------------------------')
+print('MACHINE LEARNING')
+print('-----------------------------------------------------------------------')
+# Training and testing machine learning model
+# Machine learning (ML) method
+ml_method <- "rf"
+# "rf" - Random Forest
+# "gbm" - Gradient Boosting Machine
+# Parameters related to ML model
+param_ml <- list(ntree = 500, mtry = 6)
+# data_clean_> training/testing
+ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
+
+pred_class <-ml_output$class
+pred_prob <-ml_output$probability
+ml_clf <-ml_output$model
+
+true_class <- as.integer(get(target_var[1],data_clean$testing))
+auc_ <- auc_results(true_class, pred_prob)
+
+# Updating predictions (using AUC threshold)
+pred_class <- pred_prob
+pred_class[pred_class>=auc_$threshold] <- 1
+pred_class[pred_class < auc_$threshold] <- 0
+ml_res <- ml_results2(true_class, pred_class)
+ml_res$AUC <- auc_$AUC
+# "TP", "TN", "FP", "FN", "precision", "recall", "F1", "accuracy"
+print(paste('TP: ', ml_res$TP))
+print(paste('TN: ', ml_res$TN))
+print(paste('FP: ', ml_res$FP))
+print(paste('FN: ', ml_res$FN))
+print(paste('recall: ', ml_res$recall))
+print(paste('precision: ', ml_res$precision))
+print(paste('F1: ', ml_res$F1))
+print(paste('Classification Accuracy: ', ml_res$accuracy))
+print(paste('AUC: ', ml_res$AUC))
+
 #===============================================================================
 print('-----------------------------------------------------------------------')
 print('FAIRNESS METRIC')
