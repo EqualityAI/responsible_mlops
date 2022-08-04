@@ -15,7 +15,7 @@ Give us a  :star: if you like our [EAI Manifesto](https://equalityai.com/)!</br>
 Are you concerned that [data and algorithmic biases]() lead to machine learning models that treat individuals unfavorably on the basis of characteristics such as race, gender or political orientation? Do you want to address fairness in machine learning but do not know where to start?   
 
 <img src="img/infographic.png" align="center" alt="" width="200%" />
-###### An infographic showing the long term consequences of bias finding its way into our data in one example, the health sector (image from the British Medical Journal).
+##### An infographic showing the long term consequences of bias finding its way into our data in one example, the health sector (image from the British Medical Journal).
 
 
 
