@@ -56,7 +56,7 @@ To make our `responsible_mlops` easy to follow, our expert statisticians, academ
 
 Using a healthcare application for hospital admission, our recipe will illustrate how we selected the fairness metric of Statistical Parity. We focus on three pre-processing methods to mitigate bias in the dataset, namely disparate impact remover, reweighing, and resampling. We assess the (un)fairness of a machine learning model trained on this dataset prior to applying bias mitigation. Finally, we assess the (un)fairness of the same machine learning model after bias mitigation is applied. By comparing the predictions before and after mitigation, we will be able to assess whether and to what extent the fairness of hospital admission predictions across different racial groups can be improved. Furthermore, the trade-offs between the accuracy and fairness of the machine learning model will be examined. </br>
 
-### Function Highlights
+## Function Highlights
 
 Our plug and play functions are combined into two categories, 1) standardizing the series of discretionary judgment calls data scientists make into a series of best-practice MLOps functions and 2) providing guidance on selection and application of fairness metrics and mitigation methods. 
 
