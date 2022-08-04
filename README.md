@@ -22,6 +22,8 @@ Are you concerned that [data and algorithmic biases]() lead to machine learning 
  
 <i>See full framework …</i>
 <img src="img/framework.png" align="center" alt="" width="900" />
+<sub><b>Figure 2:</b> Full Responsible AI Framework.
+</sub>
 
 <b>Bias mitigation methods</b> are employed to address bias in data and/or machine learning models and <b>fairness metrics</b> are needed to mathematically represent the fairness or bias levels of a ML model.</br>
 
