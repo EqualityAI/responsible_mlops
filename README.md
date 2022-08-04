@@ -17,6 +17,8 @@ Are you concerned that [data and algorithmic biases]() lead to machine learning 
 <img src="img/infographic.png" align="center" alt="" width="200%" />
 #### An infographic showing the long term consequences of bias finding its way into our data in one example, the health sector (image from the British Medical Journal).
 
+the <span style="font-size:larger;">word</span>
+
 
 
 
