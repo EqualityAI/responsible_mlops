@@ -103,40 +103,6 @@ data_clean$testing <- var_rem(data_clean$testing, protected_var)
 
 # Note: first column as target variable
 #===============================================================================
-# ML - METHOD I
-print('-----------------------------------------------------------------------')
-print('MACHINE LEARNING')
-print('-----------------------------------------------------------------------')
-# Training and testing machine learning model
-# Machine learning (ML) method
-ml_method <- "rf"
-# "rf" - Random Forest
-# "gbm" - Gradient Boosting Machine
-# Parameters related to ML model
-param_ml <- list(ntree = 500, mtry = 6)
-# data_clean_> training/testing
-ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
-
-pred_class <-ml_output$class
-pred_prob <-ml_output$probability
-ml_clf <-ml_output$model
-
-# Machine Learning Model Results
-true_class <- as.integer(get(target_var[1],data_clean$testing))
-ml_res <- ml_results(true_class, pred_class, pred_prob)
-# "TP", "TN", "FP", "FN", "precision", "recall", "F1", "accuracy"
-
-print(paste('TP: ', ml_res$TP))
-print(paste('TN: ', ml_res$TN))
-print(paste('FP: ', ml_res$FP))
-print(paste('FN: ', ml_res$FN))
-print(paste('recall: ', ml_res$recall))
-print(paste('precision: ', ml_res$precision))
-print(paste('F1: ', ml_res$F1))
-print(paste('Classification Accuracy: ', ml_res$accuracy))
-print(paste('AUC: ', ml_res$AUC))
-#===============================================================================
-# ML - METHOD II
 print('-----------------------------------------------------------------------')
 print('MACHINE LEARNING')
 print('-----------------------------------------------------------------------')
