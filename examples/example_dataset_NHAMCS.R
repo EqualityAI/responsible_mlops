@@ -101,16 +101,13 @@ data_clean <- train_test_split(data_clean$data, target_var, train_size = train_d
 print('-----------------------------------------------------------------------')
 print('MACHINE LEARNING')
 print('-----------------------------------------------------------------------')
-# ml_method <- "rf"
-# # "rf" - Random Forest
-# # "gbm" - Gradient Boosting Machine
-# # Parameters related to ML model
+
+# ml_method <- "rf" # Random Forest
 # param_ml <- list(ntree = 500, mtry = 6, "ignore_protected" = TRUE,  "protected" = protected_var)
-# # data_clean: training/testing
 # ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
 
 
-ml_method <- "gbm"
+ml_method <- "gbm" # Gradient Boosting Machine
 param_ml <- list("ntree" = 500, "mtry" = 6, "ignore_protected" = TRUE,  "protected" = protected_var)
 ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
 

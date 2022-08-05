@@ -21,11 +21,11 @@ metrics_compare <- function(acc,label,path_fig){
     geom_line()+
     geom_point(aes(shape =label, color = label), size = 4)+
     scale_shape_manual(values = c(15, 17))+
-    scale_color_manual(values = c("red", "blue"))+
+    scale_color_manual(values = c("#404788FF", "#238A8DFF"))+
     xlab("") + ylab("") + 
-    ylim(0,1)+
+    ylim(0.5,1)+
     labs(shape="Metrics", colour="Metrics")+
-    theme(text = element_text(size = 12))+ 
+    theme(text = element_text(size = 14))+
     geom_vline(xintercept = 1.5, linetype="dotted",color = "blue", size=0.8)+
     ggtitle("Change of Accuracy and Fairness Metrics")
   path_fig <- file.path(getwd(),"_res", "metrics_compare.png")

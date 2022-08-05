@@ -33,11 +33,11 @@ acc_metrics_compare <- function(data_viz_pre,data_viz_post, path_fig){
     geom_line()+
     geom_point(aes(shape =label, color = label), size = 4)+
     scale_shape_manual(values = c(15, 17))+
-    scale_color_manual(values = c("red", "blue"))+
+    scale_color_manual(values = c('#404788FF','#238A8DFF'))+
     xlab("") + ylab("") + 
-    ylim(0,1)+
+    ylim(0.6,0.9)+
     labs(shape="Metrics", colour="Metrics")+
-    theme(text = element_text(size = 12))+ 
+    theme(text = element_text(size = 14))+ 
     geom_vline(xintercept = 1.5, linetype="dotted",color = "blue", size=0.8)+
     ggtitle("Change of AUC Pre- and Post- Mitigation by Racial Groups")
   path_fig <- file.path(getwd(),"_res", "acc_metrics_compare.png")
@@ -48,21 +48,21 @@ acc_metrics_compare <- function(data_viz_pre,data_viz_post, path_fig){
 #-------------------------------------------------------------------------------
 # comparing the ROC curve between each sensitive variable groups
 roc_sensitive_variable <- function(label,pre_score, post_score,group_name, path_fig) {
-  png(file.path(path_fig,"roc_sensitive_variable.png"))
+  png(file.path(path_fig,"roc_sensitive_variable.png"),width = 7.5, height = 7.5, units = 'in', res = 300)
   sensitive_group<- unique(group_name)
   #par(mfrow=c(1,2))
   par(fig=c(0,0.5,0.25,0.75))
-  plot.roc(label[group_name==sensitive_group[1]],main=sensitive_group[1],xlim=c(1,0),ylim=c(0,1), pre_score[group_name==sensitive_group[1]],col='red') 
+  plot.roc(label[group_name==sensitive_group[1]],main=sensitive_group[1],xlim=c(1,0),ylim=c(0,1), pre_score[group_name==sensitive_group[1]],col="#404788FF") 
   par(new = TRUE)
-  plot.roc(label[group_name==sensitive_group[1]],xlim=c(1,0),ylim=c(0,1), post_score[group_name==sensitive_group[1]],col='blue') 
+  plot.roc(label[group_name==sensitive_group[1]],xlim=c(1,0),ylim=c(0,1), post_score[group_name==sensitive_group[1]],col='#238A8DFF') 
   
   par(fig=c(0.5,1,0.25,0.75), new=TRUE)
-  plot.roc(label[group_name==sensitive_group[2]],main=sensitive_group[2],xlim=c(1,0),ylim=c(0,1), pre_score[group_name==sensitive_group[2]],col='red') 
+  plot.roc(label[group_name==sensitive_group[2]],main=sensitive_group[2],xlim=c(1,0),ylim=c(0,1), pre_score[group_name==sensitive_group[2]],col="#404788FF") 
   par(new = TRUE)
-  plot.roc(label[group_name==sensitive_group[2]], xlim=c(1,0),ylim=c(0,1),post_score[group_name==sensitive_group[2]],col='blue') 
+  plot.roc(label[group_name==sensitive_group[2]], xlim=c(1,0),ylim=c(0,1),post_score[group_name==sensitive_group[2]],col='#238A8DFF') 
   
   par(fig=c(0,1,0,0.8), new=TRUE)
-  legend("bottom",legend=c('Pre-mitigation','Post-mitigation'),fill = c("red","blue"),
+  legend("bottom",legend=c('Pre-mitigation','Post-mitigation'),fill = c("#404788FF",'#238A8DFF'),
          title = "Migigation Method",cex = 0.8,horiz=T,xpd = T)
   
   mtext("Comparision of the ROC curve pre- and post mitigation",side = 3, line = - 8, outer = TRUE,cex=1)
@@ -75,8 +75,8 @@ roc_sensitive_variable <- function(label,pre_score, post_score,group_name, path_
 #-------------------------------------------------------------------------------
 proportion_pre_post <- function(data_viz_pre,data_viz_post,path_fig){
   # proportion_pre_post(data_viz_pre,data_viz_post)
-  pre<-prop.table(table(data_viz_pre$true_class, data_viz_pre$protected_class),2)
-  post<-prop.table(table(data_viz_post$true_class, data_viz_post$protected_class),2)
+  pre<-prop.table(table(data_viz_pre$pred_class, data_viz_pre$protected_class),2)
+  post<-prop.table(table(data_viz_post$pred_class, data_viz_post$protected_class),2)
   
   prop<-c(pre[2],pre[4],post[2],post[4])
   label<-c('White','Black')
@@ -91,8 +91,9 @@ proportion_pre_post <- function(data_viz_pre,data_viz_post,path_fig){
     geom_line()+
     geom_point(aes(shape =label, color = label), size = 4)+
     scale_shape_manual(values = c(15, 16))+
-    scale_color_manual(values = c("red","blue"))+
-    xlab("")+ylab("Proportion of Hospitalization") + 
+    scale_color_manual(values = c('#404788FF','#238A8DFF'))+
+    xlab("")+ylab("Proportion of Hospitalization") +
+    ylim(0,0.6)+
     labs(shape="Racial Groups", colour="Racial Groups")+
     theme(text = element_text(size = 14),legend.spacing.x = unit(0.2, 'cm')) +
     ggtitle("Proportion of Hospitalization by Racial/ethnic Groups") 
@@ -118,11 +119,11 @@ predictive_num_compare <- function(numb1,numb2, path_fig){
   
   data2<-t(rbind(numb2,label,group))
   predictive_black<-data.frame(data2)
-  white<-ggplot(predictive_white, aes(x=factor(group,levels = c("Pre-modeling", "Post-modeling")), y=numb1, group=label,color=label))+ 
+  white<-ggplot(predictive_white, aes(x=factor(group,levels = c("Pre-modeling", "Post-modeling")), as.numeric(numb1), group=label,color=label))+ 
     geom_line()+
     geom_point(aes(shape =label, color = label), size = 4)+
     scale_shape_manual(values = c(15, 17))+
-    scale_color_manual(values = c("red", "blue"))+theme_classic()+
+    scale_color_manual(values = c("#404788FF", "#238A8DFF"))+theme_classic()+
     xlab("") + ylab("") + 
     labs(shape="", colour="")+
     theme(text = element_text(size = 12))+ 
@@ -130,11 +131,11 @@ predictive_num_compare <- function(numb1,numb2, path_fig){
     ggtitle("Whites")
   
   
-  black<-ggplot(predictive_black, aes(x=factor(group,levels = c("Pre-modeling", "Post-modeling")), y=numb2, group=label,color=label))+ 
+  black<-ggplot(predictive_black, aes(x=factor(group,levels = c("Pre-modeling", "Post-modeling")), as.numeric(numb2), group=label,color=label))+ 
     geom_line()+
     geom_point(aes(shape =label, color = label), size = 4)+
     scale_shape_manual(values = c(15, 17))+
-    scale_color_manual(values = c("red", "blue"))+ theme_classic()+
+    scale_color_manual(values = c("#404788FF", "#238A8DFF"))+ theme_classic()+
     xlab("") + ylab("") + 
     labs(shape="", colour="")+
     theme(text = element_text(size = 12))+ 

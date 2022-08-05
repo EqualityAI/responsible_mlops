@@ -20,25 +20,33 @@ plot_report_data <- function(data_clean, ml_output, ml_res, reval_res, param_rep
   pred_prob <- ml_output$probability
   #pred_prob <- apply(pred_prob,1,max) # to delete
   # prediction (class)
-  pred_class <- ml_output$class
+  #pred_class <- ml_output$class 
   # true (class)
   testing_data <- data_clean$testing
   true_class <- get(param_report$target_var[1], testing_data)
   # protection variable (class)
   protected_class <- get(param_report$protected_var[1], testing_data)
+  
+  auc_post <- auc_results(true_class, reval_res$pred_prob)
+  reval_res$pred_class<-reval_res$pred_prob
+  reval_res$pred_class[reval_res$pred_class>=auc_post $threshold] <- 1
+  reval_res$pred_class[reval_res$pred_class < auc_post $threshold] <- 0
+  
   #-------------------------------------------------------------------------------
   data_viz_pre = list("ml_method" = param_report$ml_method, "ml_results" = ml_res,
                       "fairness_method" = param_report$fairness_method, 
-                      "fairness_results" = param_report$fairness_score,
+                      "fairness_results" = param_report$fairness_results,
                       "mitigation_method" = param_report$mitigation_method,
-                      "pred_prob" = pred_prob, "true_class"= true_class, "protected_class" = protected_class)
+                      "pred_prob" = pred_prob, "true_class"= true_class, 
+                      "protected_class" = protected_class,"pred_class"=pred_class)
   #-----------------------------------------------------------------------------
   # VIZ DATA - POST MITIGATION
   #-----------------------------------------------------------------------------
   data_viz_post = list("ml_method" = param_report$ml_method, "ml_results" = reval_res$ml_results,
                        "fairness_method" = param_report$fairness_method, "fairness_results" = res_reval$fairness_test,
                        "mitigation_method" = param_report$mitigation_method,
-                       "pred_prob" = reval_res$pred_prob, "true_class"= reval_res$true_class, "protected_class" = reval_res$protected_class)
+                       "pred_prob" = reval_res$pred_prob, "true_class"= reval_res$true_class,
+                       "protected_class" = reval_res$protected_class, "pred_class"=reval_res$pred_class)
   # ----------------------------------------------------------------------------
   results = list("pre" = data_viz_pre, "post" = data_viz_post)
   return(results)
@@ -79,8 +87,8 @@ plot_report_figures <- function(data_fig, fig_list, path_fig) {
   #-------------------------------------------------------------------------------
   #ML Metrics: AUC, Fairness Metrics: Statistical Parity]
   if("metrics_compare" %in% fig_list){
-    acc<-c(data_viz_pre$ml_results$AUC,data_viz_pre$fairness_results$equal_opportunity,
-           data_viz_post$ml_results$AUC,data_viz_post$fairness_results$equal_opportunity)
+    acc<-c(data_viz_pre$ml_results$AUC,data_viz_pre$fairness_results,
+           data_viz_post$ml_results$AUC,data_viz_post$fairness_results$`Statistical Parity`)
     label<-c('AUC','Statistical Parity Ratio')
     metrics_compare(acc,label, path_fig)
   }
@@ -94,8 +102,8 @@ plot_report_figures <- function(data_fig, fig_list, path_fig) {
   # Plot 5 - Output Class Comparison (Pre vs. post mitigation)
   #-------------------------------------------------------------------------------
   if("predictive_num_compare" %in% fig_list){
-    pre<-table(data_viz_pre$true_class, data_viz_pre$protected_class)
-    post<-table(data_viz_post$true_class, data_viz_post$protected_class)
+    pre<-table(data_viz_pre$pred_class, data_viz_pre$protected_class)
+    post<-table(data_viz_post$pred_class, data_viz_post$protected_class)
     
     numb_w<-c(pre[2],pre[1],post[2],post[1])
     numb_b<-c(pre[4],pre[3],post[4],post[3])
