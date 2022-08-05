@@ -40,7 +40,7 @@ To the best of our knowledge, no available solution exists in the literature att
  
 ## `responsible_mlops` 
 
-<img src="img/learn.jpg" align="center" alt="" width="400" /></br>
+<img src="img/learn.jpg" align="left" alt="" width="400" /></br>
 
 We have conducted extensive literature review and theoretical analysis on dozens of fairness metrics and mitigation methods. Theoretical properties of those fairness mitigation methods were analyzed to determine their suitability under various conditions to create our `responsible_mlops’ open source ML software framework for a pre-processing workflow.  The main idea is to train the ML model on a “repaired” data set, and evaluate a Fairness metric to understand if mitigation enhances the fairness of the predictions.</br>
 
