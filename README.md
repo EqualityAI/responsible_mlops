@@ -89,7 +89,7 @@ Equality AI uses both GitHib and Slack to manage our open source community. To p
 1. Join the Slack community (https://equalityai.com/slack)
     + Introduce yourself in the #Introductions channel. We're all friendly people!
 2. Check out the [CONTRIBUTING](https://github.com/EqualityAI/responsible_mlops/blob/main/CONTRIBUTING.md) file to learn how to contribute to our project, report bugs, or make feature requests.
-3. Try out the [Responsible MLOPs Toolkit](https://github.com/EqualityAI/responsible_mlops)
+3. Try out the [`responsible_mlops`](https://github.com/EqualityAI/responsible_mlops)
     + Hit the top right "star" button on GitHub to show your love!
     + Follow the recipe above to use the code. 
 4. Provide feedback on your experience using the [GitHub discussions](https://github.com/EqualityAI/respomsible_mlops/discussions) or the [Slack #support](https://equalityai.slack.com/archives/C03HF7G4N0Y) channel
