@@ -95,8 +95,3 @@ Equality AI uses both GitHib and Slack to manage our open source community. To p
 4. Provide feedback on your experience using the [GitHub discussions](https://github.com/EqualityAI/respomsible_mlops/discussions) or the [Slack #support](https://equalityai.slack.com/archives/C03HF7G4N0Y) channel
     + For any questions or problems, send a message on Slack, or send an email to contact@equalityai.com.
 
-
-## Authors
-<img src="https://github.com/EqualityAI/Checklist/blob/master/img/color logo only.PNG" align="left" alt="" width="75" />
-
-[Equality AI](https://equalityai.com/) is a public benefit corporation dedicated to helping data scientists close the health disparity gap by assembling a Responsible AI framework into tools that include modernized, end-to-end MLOps with functions that can be selectively incorporated to create various workflows designed to produced equitable, responsible models. <br></br>  
