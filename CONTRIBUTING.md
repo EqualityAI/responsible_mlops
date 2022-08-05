@@ -49,7 +49,7 @@ Guidelines for bug reports:
    reported.
 
 2. **Check if the issue has been fixed** &mdash; try to reproduce it using the
-   latest `master` or `next` branch in the repository.
+   latest `main` or `next` branch in the repository.
 
 3. **Isolate the problem** &mdash; ideally create a reduced test case.
 
@@ -112,8 +112,8 @@ If you have never created a pull request before, welcome :tada: :smile:! Don't w
 2. If you cloned a while ago, get the latest changes from upstream:
 
    ```bash
-   git checkout master
-   git pull upstream master
+   git checkout main
+   git pull upstream main
    ```
 
 3. Create a new topic branch (off the main project development branch) to
@@ -140,7 +140,7 @@ If you have never created a pull request before, welcome :tada: :smile:! Don't w
 7. [Open a Pull Request](https://help.github.com/articles/using-pull-requests/)
     with a clear title and description.
 
-8. One of the Equality AI Maintainers will review your request and either commit it to the Master Branch or reach out to you for more information when needed. 
+8. One of the Equality AI Maintainers will review your request and either commit it to the Main Branch or reach out to you for more information when needed. 
 
 ## Reach out for help!
 If you have any issues contributing, or would like to speak directly to someone at Equality AI, please head over to Slack and send a message on the #support channel.
