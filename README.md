@@ -8,7 +8,7 @@
 
 We have released the technology behind our Responsible MLOPs Studio on GitHub as an open source ML software framework and tool, called `responsible_mlops`.
 
-Give us a  :star: if you like our [EAI Manifesto](https://equalityai.com/community/#manifesto)!</br>
+If you like what we're doing, give us a :star: and join our [EAI Manifesto!](https://equalityai.com/community/#manifesto)!</br>
 <img src="img/star.png" align="center" alt="" width="400" /></br>
 
 ## Fairness-based Machine Learning (Pre-processing)
@@ -33,13 +33,13 @@ There are many different interpretations of what it means for an algorithm to be
 However, Fairness-based ML comes with its own challenges: 
 * Plethora of fairness metics and mitigation methods
 * Little guidance for selecting the suitable fairness metric 
-* There are trade-offs between different fairness metrics
-* The most appropriate mitigation methods to use will depend on the selected fairness metrics, the machine learning model used in the training, and other characteristics of the use case.</br>
+* Navigating trade-offs between different fairness metrics
+* The most appropriate mitigation methods to use depending on the selected fairness metrics, the machine learning model used in the training, and other characteristics of the use case.</br>
 
 To the best of our knowledge, no available solution exists in the literature attempting to tackle this problem. Thus, a systematic procedure for selecting the most suitable fairness notions and appropriate mitigation strategies for a specific machine learning based decision making system is highly desirable and necessary.</br>
  
 ## `responsible_mlops` 
-We have conducted extensive literature review and theoretical analysis on a large number of fairness metrics and mitigation methods. Theoretical properties of those fairness mitigation methods were analyzed to determine their suitability under various conditions to create our `responsible_mlops’ open source ML software framework for a pre-processing workflow.  The main idea is to train the ML model on a “repaired” data set, and evaluate a Fairness metric to understand if mitigation enhances the fairness of the predictions.</br>
+We have conducted extensive literature review and theoretical analysis on dozens of fairness metrics and mitigation methods. Theoretical properties of those fairness mitigation methods were analyzed to determine their suitability under various conditions to create our `responsible_mlops’ open source ML software framework for a pre-processing workflow.  The main idea is to train the ML model on a “repaired” data set, and evaluate a Fairness metric to understand if mitigation enhances the fairness of the predictions.</br>
 
 Using a healthcare application, we illustrate every step <b>(see steps 1-9 below)</b> of our fair machine learning framework. From choosing appropriate fairness metrics to determining suitable fairness mitigation strategies, from mitigation of fairness in data and models to fairness evaluation.
 >1. Define Research Question
