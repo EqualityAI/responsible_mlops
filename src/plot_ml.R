@@ -25,11 +25,11 @@ acc_metrics_compare <- function(data_viz_pre,data_viz_post, path_fig){
   
   acc<-c(auc_w1,auc_b1,auc_w2,auc_b2)
   label<-c('White','Black','White','Black')
-  group<-c('Pre-modeling','Pre-modeling','Post-modeling','Post-modeling')
+  group<-c('Pre-mitigation','Pre-mitigation','Post-mitigation','Post-mitigation')
   data<-t(rbind(acc,label,group))
   proportion_data<-data.frame(data)
   
-  ggplot(proportion_data, aes(x=factor(group,levels = c("Pre-modeling", "Post-modeling")), y=as.numeric(acc), group=label,color=label))+ 
+  ggplot(proportion_data, aes(x=factor(group,levels = c("Pre-mitigation", "Post-mitigation")), y=as.numeric(acc), group=label,color=label))+ 
     geom_line()+
     geom_point(aes(shape =label, color = label), size = 4)+
     scale_shape_manual(values = c(15, 17))+
@@ -80,23 +80,23 @@ proportion_pre_post <- function(data_viz_pre,data_viz_post,path_fig){
   
   prop<-c(pre[2],pre[4],post[2],post[4])
   label<-c('White','Black')
-  period<-c('Pre-modeling','Pre-modeling','Post-modeling','Post-modeling')
+  period<-c('Pre-mitigation','Pre-mitigation','Post-mitigation','Post-mitigation')
   
   data<-t(rbind(label,prop,period))
   proportion_data<-data.frame(data)
   proportion_data$label <- factor(proportion_data$label,levels = c('White','Black'))
   
-  ggplot(proportion_data, aes(x=factor(period,levels = c("Pre-modeling", "Post-modeling")), 
+  ggplot(proportion_data, aes(x=factor(period,levels = c("Pre-mitigation", "Post-mitigation")), 
                               y=as.numeric(prop), group=label,color=label))+ 
     geom_line()+
     geom_point(aes(shape =label, color = label), size = 4)+
     scale_shape_manual(values = c(15, 16))+
     scale_color_manual(values = c('#404788FF','#238A8DFF'))+
-    xlab("")+ylab("Proportion of Hospitalization") +
+    xlab("")+ylab("Proportion of Predicted Hospitalizations") +
     ylim(0,0.6)+
     labs(shape="Racial Groups", colour="Racial Groups")+
     theme(text = element_text(size = 14),legend.spacing.x = unit(0.2, 'cm')) +
-    ggtitle("Proportion of Hospitalization by Racial/ethnic Groups") 
+    ggtitle("Predicted Proportion of Hospitalizations by Racial Groups") 
   path_fig <- file.path(getwd(),"_res", "proportion_pre_post.png")
   ggsave(path_fig,width = 7, height = 7)
 }
@@ -113,13 +113,13 @@ predictive_num_compare <- function(numb1,numb2, path_fig){
   #predictive_num_compare(numb_w,numb_b)
   
   label<-c('Positive number','Negative number','Positive number','Negative number')
-  group<-c('Pre-modeling','Pre-modeling','Post-modeling','Post-modeling')
+  group<-c('Pre-mitigation','Pre-mitigation','Post-mitigation','Post-mitigation')
   data1<-t(rbind(numb1,label,group))
   predictive_white<-data.frame(data1)
   
   data2<-t(rbind(numb2,label,group))
   predictive_black<-data.frame(data2)
-  white<-ggplot(predictive_white, aes(x=factor(group,levels = c("Pre-modeling", "Post-modeling")), as.numeric(numb1), group=label,color=label))+ 
+  white<-ggplot(predictive_white, aes(x=factor(group,levels = c("Pre-mitigation", "Post-mitigation")), as.numeric(numb1), group=label,color=label))+ 
     geom_line()+
     geom_point(aes(shape =label, color = label), size = 4)+
     scale_shape_manual(values = c(15, 17))+
@@ -131,7 +131,7 @@ predictive_num_compare <- function(numb1,numb2, path_fig){
     ggtitle("Whites")
   
   
-  black<-ggplot(predictive_black, aes(x=factor(group,levels = c("Pre-modeling", "Post-modeling")), as.numeric(numb2), group=label,color=label))+ 
+  black<-ggplot(predictive_black, aes(x=factor(group,levels = c("Pre-mitigation", "Post-mitigation")), as.numeric(numb2), group=label,color=label))+ 
     geom_line()+
     geom_point(aes(shape =label, color = label), size = 4)+
     scale_shape_manual(values = c(15, 17))+
