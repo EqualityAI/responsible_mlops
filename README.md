@@ -96,5 +96,5 @@ Equality AI uses both GitHib and Slack to manage our open source community. To p
     + Hit the top right "star" button on GitHub to show your love!
     + Follow the recipe above to use the code. 
 4. Provide feedback on your experience using the [GitHub discussions](https://github.com/EqualityAI/respomsible_mlops/discussions) or the [Slack #support](https://equalityai.slack.com/archives/C03HF7G4N0Y) channel
-    + For any questions or problems, send a message on Slack, or send an email to contact@equalityai.com.
+    + For any questions or problems, send a message on Slack, or send an email to support@equalityai.com.
 
