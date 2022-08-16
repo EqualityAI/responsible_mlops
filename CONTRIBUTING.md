@@ -23,7 +23,7 @@ First things first, head over to Slack and join the [Equality AI Slack Community
 
 Introduce yourself in the [Slack #Introductions channel](https://equalityai.slack.com/archives/C03HF77775W). We're friendly people and would love to learn more about you!
 
-Next, try out the [Responsible MLOps Toolkit](https://github.com/EqualityAI/responsible_mlops). Be sure to review the [README](https://github.com/EqualityAI/responsible_mlops/blob/main/README.md) file to learn how to use the Toolkit!
+Next, try out the [`responsible_mlops`](https://github.com/EqualityAI/responsible_mlops). Be sure to review the [README](https://github.com/EqualityAI/responsible_mlops/blob/main/README.md) file to learn how to use the Toolkit!
 
 Hit the top right "star" :star: button on GitHub to show your love.
 :green_heart: 
