@@ -35,7 +35,7 @@ Hit the top right "star" :star: button on GitHub to show your love.
 
 The [GitHub issue tracker](https://github.com/EqualityAI/responsible_mlops/issues) is the preferred channel for bug reports. (See definition of a bug below :grin: :lady_beetle: )
 
-* Have a question about the EAI code? Please check out the [GitHub discussions](https://github.com/EqualityAI/responsible_mlops/discussions)  first to see if your question has already been asked or answered.  GitHub discussions are the preferred way to ask support questions, but we do also use [Slack #support channel](https://equalityai.slack.com/archives/C03HF7G4N0Y)! 
+* Have a question about the EAI code? Please check out the [GitHub discussions](https://github.com/EqualityAI/responsible_mlops/discussions)  first to see if your question has already been asked or answered.  GitHub discussions are the preferred way to ask support questions, but we do also use [Slack #support channel(https://equalityai.slack.com/archives/C03HF7G4N0Y)! 
 
 
 ## Bug reports
