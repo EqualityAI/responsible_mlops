@@ -17,6 +17,9 @@ library("mltools")
 library("hash")
 library("pROC")
 library("ggpubr")
+library("mice")
+library("tidyverse")
+library("missForest")
 #====================================================================
 # 0B - SCRIPTS
 #====================================================================
@@ -34,6 +37,8 @@ source(file.path(getwd(),"src","plot_ml.R"))
 source(file.path(getwd(),"src","plot_fairness.R"))
 source(file.path(getwd(),"src","plot_report.R"))
 source(file.path(getwd(),"src","export_data.R"))
+source("https://raw.githubusercontent.com/prockenschaub/Misc/master/R/mice.reuse/mice.reuse.R")
+
 #===============================================================================
 # EXPERIMMENT CONFIGURATION
 #===============================================================================
@@ -62,8 +67,7 @@ print('-----------------------------------------------------------------------')
 print('FAIRNESS & MITIGATION RECOMMENDATION')
 print('-----------------------------------------------------------------------')
 # Fairness metric questionnaire
-fairness_tree_info <- read.csv(file.path(getwd(),"config","fairness_tree.csv"), sep=',')
-#fairness_tree_info <- read_csv(file.path(getwd(),"config","fairness_tree.csv"))
+fairness_tree_info <- read_csv(file.path(getwd(),"config","fairness_tree.csv"))
 fairness_metric_tree <- fairness_tree_metric(fairness_tree_info) 
 
 fairness_method <- fairness_metric_tree$fairness_metric
@@ -79,7 +83,7 @@ print('-----------------------------------------------------------------------')
 print('DATA PREPARE')
 print('-----------------------------------------------------------------------')
 # method_prepare:'Zhang', 'Raita', 'default'
-method_options<-list(method_prepare='Zhang',method_missing='mi_impute',max_iter=5)
+method_options<-list(method_prepare='Zhang')
 
 # Data clean
 data_clean <- data_prepare_nhamcs(data_raw$data, data_raw$target_variable, method_options)
@@ -89,28 +93,30 @@ print(paste('Clean data (dimensions): ', nrow(data_clean$data),ncol(data_clean$d
 train_data_size = 0.7
 data_clean <- train_test_split(data_clean$data, target_var, train_size = train_data_size)
 
+# Choose one of the following methods for imputation
+# Apply imputation (method 1 mice)
+data_clean <- data_prep_missing_values_sep(data_clean, method_missing='mi_impute', param_missing = list(max_iter_mi=5))
+# Apply imputation (method 2 mice)
+#data_clean <- data_prep_missing_values_merge(data_clean, method_missing='mi_impute', param_missing = list(max_iter_mi=5))
+# Apply imputation (method 3 rf)
+#data_clean <- data_prep_missing_values_merge(data_clean, method_missing='rf_impute', param_missing = list(max_iter_rf=5))
 
 # Data balancing (Optional)
 # method_balancing <- "under"
 # # e.g "under": under-sampling, "over": over-sampling
 # data_clean$training <- data_balancing(data_clean$training,target_var, method_balancing)
-
-
 # Note: first column as target variable in the data
 #===============================================================================
 print('-----------------------------------------------------------------------')
 print('MACHINE LEARNING')
 print('-----------------------------------------------------------------------')
-
 # ml_method <- "rf" # Random Forest
 # param_ml <- list(ntree = 500, mtry = 6, "ignore_protected" = TRUE,  "protected" = protected_var)
 # ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
 
-
 ml_method <- "gbm" # Gradient Boosting Machine
 param_ml <- list("ntree" = 500, "mtry" = 6, "ignore_protected" = TRUE,  "protected" = protected_var)
 ml_output = ml_model(data_clean, target_var, ml_method, param_ml)
-
 
 pred_class <-ml_output$class
 pred_prob <-ml_output$probability
@@ -151,8 +157,6 @@ print('MITIGATION')
 print('-----------------------------------------------------------------------')
 param_bias_mitigation = list("protected" = protected_var)
 training_data_m <- bias_mitigation(mitigation_method, data_clean$training, target_var, param_bias_mitigation)
-testing_data_m <- bias_mitigation(mitigation_method, data_clean$testing, target_var, param_bias_mitigation)
-
 #==============================================================================
 # 4 - RE-EVALUATION
 #==============================================================================
@@ -163,12 +167,12 @@ if(reevaluate_method == TRUE){
   param_reevaluate_algorithm <- list("ignore_protected" = TRUE, "protected" = protected_var, "privileged" = privileged_class,
                                      "param_ml" = param_ml)
   if(names(training_data_m) == "data"){
+    testing_data_m <- bias_mitigation(mitigation_method, data_clean$testing, target_var, param_bias_mitigation)
     data_reevaluation <- list("type" = names(training_data_m), "training" = training_data_m$data, "testing" = testing_data_m$data)
   }
   else if(names(training_data_m) == "weight"){
     param_reevaluate_algorithm[["param_ml"]][["weights"]] <- training_data_m$weight
     data_reevaluation <- list("ignore_protected" = TRUE, "type" = names(training_data_m), "training" = data_clean$training, "testing" = data_clean$testing)
-    param_reevaluate_algorithm[["param_ml"]][["weights"]] <- NULL
   }
   else if(names(training_data_m) == "index"){
     data_reevaluation <- list("ignore_protected" = TRUE, "type" = names(training_data_m), "training" = data_clean$training, "testing" = data_clean$testing, 

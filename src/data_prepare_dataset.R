@@ -122,21 +122,24 @@ data_prepare_nhamcs <- function(data_input, target_var, method_options) {
       
     }
     data_input<-subset(data_input,data_input$AGE>=18)
+    
     # Missing value imputation
-    data_input[data_input == "" | data_input == " "] <- NA
-    if(method_options$method_missing == 'complete_case'){
-      data_input<-data_prep_missing_values(data_input, method_missing=method_options$method_missing)
-    }
-    else if(method_options$method_missing == 'mi_impute'){
-      param_missing = list("max_iter_mi"=method_options$max_iter)
-      data_input<-data_prep_missing_values(data_input, method_missing=method_options$method_missing, param_missing=param_missing)
-    }
-    else if(method_options$method_missing == 'rf_impute'){
-      param_missing = list("max_iter_rf"=method_options$max_iter)
-      data_input<-data_prep_missing_values(data_input, method_missing=method_options$method_missing, param_missing=param_missing)
-    }
+    #data_input[data_input == "" | data_input == " "] <- NA
+    #if(method_options$method_missing == 'complete_case'){
+    #  data_input<-data_prep_missing_values(data_input, method_missing=method_options$method_missing)
+    #}
+    #else if(method_options$method_missing == 'mi_impute'){
+    #  param_missing = list("max_iter_mi"=method_options$max_iter)
+    #  data_input<-data_prep_missing_values(data_input, method_missing=method_options$method_missing, param_missing=param_missing)
+    #}
+    #else if(method_options$method_missing == 'rf_impute'){
+    #  param_missing = list("max_iter_rf"=method_options$max_iter)
+    #  data_input<-data_prep_missing_values(data_input, method_missing=method_options$method_missing, param_missing=param_missing)
+    #}
     # Using only black and white race "RACERETH"
     # Note: RACERETH -->(1:White, 2:Black, 3:Hispanic, 4:Other)
+    
+    
     data_input<-subset(data_input,data_input$RACERETH==1 | data_input$RACERETH==2)
     rownames(data_input) <- NULL
     # Data Types

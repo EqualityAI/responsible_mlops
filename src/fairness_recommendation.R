@@ -20,7 +20,7 @@ fairness_tree_metric <- function(ftree_df) {
   # OUTPUT
   # results (list)        - Fairness metric recommendation along with the node number
   #-------------------------------------------------------------------
-  NODE_START <- 1 # Number of the node from which the questionnaire will start
+  NODE_START <- 2 # Number of the node from which the questionnaire will start
   NODE_END <- -1 # Number of the node at which the questionnaire will end
   node_ <- NODE_START # current node of the iteration
   while(node_ != NODE_END)

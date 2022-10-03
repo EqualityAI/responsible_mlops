@@ -127,3 +127,105 @@ data_prep_missing_values = function(data_input, method_missing, param_missing=li
 # max_iter_rf = 10
 # param_missing = list("max_iter_rf"=max_iter_rf)
 # data_prep_missing_values(data_input, method_missing=method_missing, param_missing=param_missing)
+#
+
+
+# This method first imputes the missing values in the training set, 
+# and store the model which is then used to impute the missing values in the test set
+# This method is only applicable to the mice package.
+data_prep_missing_values_sep = function(data_input, method_missing, param_missing=list("max_iter_mi"=50)){
+  # library required: mice
+  
+  # method_missing can be one of complete_case, mi_impute, and rf_impute
+  # if method_missing is mi_impute, max_iter_mi may be provided (default = 50)
+
+  
+  if(method_missing == "complete_case"){
+    data_input$training <- data_input$training[complete.cases(data_input$training), ]
+    data_input$testing <- data_input$testing[complete.cases(data_input$testing), ]
+  }
+  else if(method_missing == "mi_impute"){
+    max_iter <- param_missing$max_iter_mi
+    x_train <- data_input$training[-1]
+    y_train <- data_input$training[1]
+    x_test <- data_input$testing[-1]
+    y_test <- data_input$testing[1]
+    x_train <- mice(x_train,m=1, maxit = max_iter, printFlag = FALSE)
+    x_test <- mice.reuse(x_train, x_test, maxit = 1)
+    #x_train <- x_train$data
+    x_train <- complete(x_train)
+    x_test <- x_test$`1`
+    
+    data_input$training = cbind(y_train, x_train)
+    data_input$testing = cbind(y_test, x_test)
+  }
+  return(data_input)
+}
+
+# Example usage
+
+#method_missing = "complete_case"
+#data_prep_missing_values_sep(data_input, method_missing=method_missing)
+
+
+# method_missing = "mi_impute"
+# data_prep_missing_values_sep(data_input, method_missing=method_missing)
+
+# method_missing = "mi_impute"
+# max_iter_mi = 10
+# param_missing = list("max_iter_mi"=max_iter_mi)
+# data_prep_missing_values_sep(data_input, method_missing=method_missing, param_missing=param_missing)
+
+
+# This method first imputes the missing values in the training set, then combine the imputed training set with the test set,
+# impute the combined dataset, and extract the imputed test set.
+data_prep_missing_values_merge = function(data_input, method_missing, param_missing=list("max_iter_mi"=50, "max_iter_rf"=5)){
+  # library required: mice
+  
+  # method_missing can be one of complete_case, mi_impute, and rf_impute
+  # if method_missing is mi_impute, max_iter_mi may be provided (default = 50)
+  
+  
+  if(method_missing == "complete_case"){
+    data_input$training <- data_input$training[complete.cases(data_input$training), ]
+    data_input$testing <- data_input$testing[complete.cases(data_input$testing), ]
+  }
+  else if(method_missing == "mi_impute"){
+    max_iter <- param_missing$max_iter_mi
+    x_train <- data_input$training[-1]
+    y_train <- data_input$training[1]
+    x_test <- data_input$testing[-1]
+    y_test <- data_input$testing[1]
+    n_train <- nrow(x_train)
+    n_test <- nrow(x_test)
+    
+    x_train <- mice(x_train, m=1, maxit = max_iter, printFlag = FALSE)
+    x_train <- complete(x_train)
+    x_comb <- rbind(x_train, x_test)
+    x_comb <- mice(x_comb, m=1, maxit = max_iter, printFlag = FALSE)
+    x_comb <- complete(x_comb)
+    x_test = x_comb[(n_train+1): (n_train+n_test),]
+    
+    data_input$training = cbind(y_train, x_train)
+    data_input$testing = cbind(y_test, x_test)
+  }
+  else if(method_missing == "rf_impute"){
+    max_iter <- param_missing$max_iter_rf
+    x_train <- data_input$training[-1]
+    y_train <- data_input$training[1]
+    x_test <- data_input$testing[-1]
+    y_test <- data_input$testing[1]
+    n_train <- nrow(x_train)
+    n_test <- nrow(x_test)
+    
+    x_train <- missForest(x_train, maxiter=max_iter, ntree=1)$ximp
+    x_comb <- rbind(x_train, x_test)
+    x_comb <- missForest(x_comb, maxiter=max_iter, ntree=1)$ximp
+    x_test = x_comb[(n_train+1): (n_train+n_test),]
+    
+    data_input$training = cbind(y_train, x_train)
+    data_input$testing = cbind(y_test, x_test)
+  }
+  return(data_input)
+}
+

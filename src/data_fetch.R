@@ -47,8 +47,9 @@ data_fetch <- function(data_name = "Diabetes", data_type = "default", local_copy
   else if(tolower(data_name) == "nhamcs"){
     # https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NHAMCS/
     if(data_type == "default"){
-      path_data <- file.path(getwd(), "_data", "NHAMCS", "sascode2019",'ed2019_sas.sas7bdat')
-      data_ <-read_sas(path_data)
+      #data_ <- read_csv(url("https://stgen2pocv2.blob.core.windows.net/publiccsv/nhamcs_ed2019.csv"))
+      data_ <- readRDS(url("https://stgen2pocv2.blob.core.windows.net/publiccsv/nhamcs_ed2019.rds"))
+      
       data_ <- data.frame(data_)
       data_ = list("data" = data_, "target_variable" = "HOS", 
                     "target_variable" = "HOS", "protected_var" = "RACERETH", "privileged_class" = 1)
