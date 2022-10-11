@@ -60,7 +60,6 @@ print(paste('Raw data (dimensions): ', nrow(data_raw$data),ncol(data_raw$data)))
 print(paste('Target variable: ', target_var))
 print(paste('Protected variable: ', protected_var))
 print(paste('Privileged class: ', privileged_class))
-
 #===============================================================================
 print('-----------------------------------------------------------------------')
 print('FAIRNESS & MITIGATION RECOMMENDATION')
