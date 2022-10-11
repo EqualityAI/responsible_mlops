@@ -171,6 +171,7 @@ if(reevaluate_method == TRUE){
   else if(names(training_data_m) == "weight"){
     param_reevaluate_algorithm[["param_ml"]][["weights"]] <- training_data_m$weight
     data_reevaluation <- list("ignore_protected" = TRUE, "type" = names(training_data_m), "training" = data_clean$training, "testing" = data_clean$testing)
+    param_reevaluate_algorithm[["param_ml"]][["weights"]] <- NULL
     }
   else if(names(training_data_m) == "index"){
     data_reevaluation <- list("ignore_protected" = TRUE, "type" = names(training_data_m), "training" = data_clean$training, "testing" = data_clean$testing, 
@@ -203,10 +204,4 @@ path_fig <- file.path(getwd(),"_res")
 # generate figures for the report in the "path_fig" location
 fig_list <- list("acc_metrics_compare", "roc_sensitive_variable", 
                  "metrics_compare", "proportion_pre_post", "predictive_num_compare")
-
 plot_report_figures(data_fig, fig_list, path_fig)
-
-
-
-                     
-     
