@@ -68,8 +68,6 @@ roc_sensitive_variable <- function(label,pre_score, post_score,group_name, path_
   mtext("Comparision of the ROC curve pre- and post mitigation",side = 3, line = - 8, outer = TRUE,cex=1)
   dev.off()
 }
-
-
 #-------------------------------------------------------------------------------
 # PLOT 4 - Protected Variable Proportion (Pre vs. Post Mitigation)
 #-------------------------------------------------------------------------------
@@ -100,8 +98,6 @@ proportion_pre_post <- function(data_viz_pre,data_viz_post,path_fig){
   path_fig <- file.path(getwd(),"_res", "proportion_pre_post.png")
   ggsave(path_fig,width = 7, height = 7)
 }
-
-
 #-------------------------------------------------------------------------------
 # Plot 5 - Output Class Comparison (Pre vs. post mitigation)
 #-------------------------------------------------------------------------------
@@ -148,78 +144,3 @@ predictive_num_compare <- function(numb1,numb2, path_fig){
   path_fig <- file.path(getwd(),"_res", "predictive_num_compare.jpeg")
   ggsave(path_fig, width = 10, height = 10)
 }
-
-
-# #===============================================================================
-# #-------------------------------------------------------------------------------
-# # PLOT 1A - ML Results Using Bar Chart
-# #-------------------------------------------------------------------------------
-# data_viz_pre$ml_results <- res_rem_tfpn(data_viz_pre$ml_results)
-# data_viz_post$ml_results <- res_rem_tfpn(data_viz_post$ml_results)
-# plot_ml_results_bar(data_viz_pre,data_viz_post)
-# 
-# #-------------------------------------------------------------------------------
-# # PLOT 1B - ML Results Using Radar Chart
-# #-------------------------------------------------------------------------------
-# plot_ml_results_radar(data_viz_pre,data_viz_post)
-# 
-# 
-# #-------------------------------------------------------------------------------
-# # PLOT 2A - Fairness Metrics Using Bar Chart
-# #-------------------------------------------------------------------------------
-# plot_fairness_results(data_viz_pre)
-# plot_fairness_results(data_viz_post)
-# #-------------------------------------------------------------------------------
-# # PLOT 2B - Fairness Metrics Comparison Using Bar Chart
-# #-------------------------------------------------------------------------------
-# plot_fairness_comparison(data_viz_pre,data_viz_post)
-# #-------------------------------------------------------------------------------
-# # PLOT 2C - Fairness Metrics Comparison Using Bar Chart
-# #-------------------------------------------------------------------------------
-# plot_fairness_percentage(data_viz_pre,data_viz_post)
-# #===============================================================================
-# # ML Model Comparison Using Bar Chart
-# #===============================================================================
-# # 1 bar charts (TP, FP, FN, )
-# plot_ml_results_bar <- function(data_viz_pre,data_viz_post){
-#   # plot_ml_results_bar(data_viz_pre,data_viz_post)
-#   
-#   pre_metrics <- as.numeric(data_viz_pre$ml_results)
-#   post_metrics <- as.numeric(data_viz_post$ml_results)
-#   metric_name<- names(data_viz_post$ml_results)
-#   acc_metrics<-t(cbind(pre_metrics,post_metrics))
-#   barplot(acc_metrics, main="Accuracy Metrics",xlab="",col=c('red','blue'), 
-#           names.arg =metric_name , cex.names = 0.6, beside=TRUE)
-#   legend("topright",inset=c(0.01,0), legend=c('Pre-mitigation','Post-mitigation'),fill = c("red","blue"),
-#          cex = 0.6,horiz=F,xpd = T)
-#   
-# }
-# #===============================================================================
-# # ML Model Comparison Using Radar Chart
-# #===============================================================================
-# plot_ml_results_radar <- function(data_viz_pre, data_viz_post) {
-#   # plot_ml_results_radar(data_viz_pre, data_viz_post)
-#   
-#   pre_metrics <- as.numeric(data_viz_pre$ml_results)
-#   post_metrics <- as.numeric(data_viz_post$ml_results)
-#   
-#   acc_min <-rep(0,length(pre_metrics))
-#   acc_max <-rep(1,length(pre_metrics))
-#   
-#   pre_mitigation <-as.data.frame(rbind(acc_min,acc_max,pre_metrics))
-#   post_mitigation <-as.data.frame(rbind(acc_min,acc_max,post_metrics))
-#   
-#   colnames(pre_mitigation )<-names(data_viz_pre$ml_results)
-#   colnames(post_mitigation )<-names(data_viz_post$ml_results)
-#   
-#   radarchart(pre_mitigation,pcol='red',plwd=2,axistype=1, seg=4)
-#   
-#   par(new = TRUE)
-#   radarchart(post_mitigation,pcol='blue',plwd=2)
-#   
-#   legend("topright",inset=c(0.01,0), legend=c('Pre-mitigation','Post-mitigation'),fill = c("red","blue"),
-#          title = "Migigation Method",cex = 0.7,horiz=F,xpd = F)
-#   
-#   mtext("Comparision of the accuracy metrics pre- and post mitigation",side = 3, line = - 3, outer = TRUE,cex=1.3)
-#   
-# }
