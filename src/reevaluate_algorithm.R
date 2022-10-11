@@ -1,6 +1,3 @@
-#source(file.path(getwd(),"src","ml_model.R"))
-#source(file.path(getwd(),"src","fairness_metrics.R"))
-
 #====================================================================
 # REEVALUATE ALGORITHM (ML MODEL, FAIRNESS METRICS)
 #====================================================================

@@ -8,18 +8,16 @@ library("caret")
 library("dplyr") 
 library("randomForest")
 library("gbm")
-library("dplyr")
 library("DALEX")
 library("fairmodels")
-library("haven")
-library("data.table")
 library("mltools") 
 library("hash")
+library("fmsb")
 library("pROC")
 library("ggpubr")
 library("mice")
-library("tidyverse")
 library("missForest")
+library("tidyverse")
 #====================================================================
 # 0B - SCRIPTS
 #====================================================================
@@ -38,7 +36,6 @@ source(file.path(getwd(),"src","plot_fairness.R"))
 source(file.path(getwd(),"src","plot_report.R"))
 source(file.path(getwd(),"src","export_data.R"))
 source("https://raw.githubusercontent.com/prockenschaub/Misc/master/R/mice.reuse/mice.reuse.R")
-
 #===============================================================================
 # EXPERIMMENT CONFIGURATION
 #===============================================================================
@@ -75,7 +72,7 @@ fairness_metric_tree <- fairness_tree_metric(fairness_tree_info)
 fairness_method <- fairness_metric_tree$fairness_metric
 print(paste0('Fairness metric: ',fairness_method))
  
-# # Mitigation method mapping
+# Mitigation method mapping
 mitigation_mapping_info <- read.csv(file.path(getwd(),"config","mitigation_mapping.csv"), sep=',')
 mitigation_method <- mitigation_mapping_method(mitigation_mapping_info, fairness_method) 
 print(paste0('Mitigation method: ',mitigation_method))
@@ -175,7 +172,7 @@ if(reevaluate_method == TRUE){
   else if(names(training_data_m) == "weight"){
     param_reevaluate_algorithm[["param_ml"]][["weights"]] <- training_data_m$weight
     data_reevaluation <- list("ignore_protected" = TRUE, "type" = names(training_data_m), "training" = data_clean$training, "testing" = data_clean$testing)
-  }
+    }
   else if(names(training_data_m) == "index"){
     data_reevaluation <- list("ignore_protected" = TRUE, "type" = names(training_data_m), "training" = data_clean$training, "testing" = data_clean$testing, 
                               "index" = training_data_m$index)
