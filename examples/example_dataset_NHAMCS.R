@@ -44,6 +44,8 @@ source("https://raw.githubusercontent.com/prockenschaub/Misc/master/R/mice.reuse
 #===============================================================================
 # Reevaluate ML model and fairness metrics after mitigation
 reevaluate_method = TRUE
+# Set fixed seed 
+set.seed(123)
 #===============================================================================
 print('-----------------------------------------------------------------------')
 print('DATA FETCH')
