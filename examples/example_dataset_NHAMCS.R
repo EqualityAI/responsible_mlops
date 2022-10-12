@@ -72,7 +72,7 @@ fairness_method <- fairness_metric_tree$fairness_metric
 print(paste0('Fairness metric: ',fairness_method))
  
 # Mitigation method mapping
-mitigation_mapping_info <- read.csv(file.path(getwd(),"config","mitigation_mapping.csv"), sep=',')
+mitigation_mapping_info <- read.csv(file.path(getwd(),"config","mitigation_mapping.csv"), sep=',',fileEncoding = 'UTF-8-BOM')
 mitigation_method <- mitigation_mapping_method(mitigation_mapping_info, fairness_method) 
 print(paste0('Mitigation method: ',mitigation_method))
 
