@@ -200,7 +200,7 @@ param_report <- list("target_var" = target_var, "ml_method" = ml_method,
 data_fig <- plot_report_data(data_clean, ml_output, ml_res, res_reval, param_report)
 # path of the figures
 path_fig <- file.path(getwd(),"_res")
-
+if(!dir.exists(path_fig)) {dir.create(path_fig)}
 # generate figures for the report in the "path_fig" location
 fig_list <- list("acc_metrics_compare", "roc_sensitive_variable", 
                  "metrics_compare", "proportion_pre_post", "predictive_num_compare")
